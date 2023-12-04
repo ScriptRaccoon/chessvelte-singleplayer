@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Board } from "@/ts/Board"
-	import { COLS, ROWS } from "@/ts/config"
+	import { COLS, ROWS, SIZE } from "@/ts/config"
 	import Square from "./Square.svelte"
 	import Piece from "./Piece.svelte"
 
@@ -9,7 +9,7 @@
 </script>
 
 <div class="board">
-	<div class="squares" style:--size={COLS.length}>
+	<div class="squares" style:--size={SIZE}>
 		{#each ROWS as row}
 			{#each COLS as col}
 				<Square
