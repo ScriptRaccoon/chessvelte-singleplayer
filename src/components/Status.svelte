@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { current_color } from "@/ts/stores"
+	import type { Color } from "@/ts/types"
+
+	export let current_color: Color
 </script>
 
 <section aria-label="status">
-	Turn: {$current_color}
+	Turn: {current_color}
 </section>
 
 <style lang="scss">

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Coord, Coord_Key } from "@/ts/types"
+	import type { Coord, Coord_Key, Color } from "@/ts/types"
 
 	import { board } from "@/ts/Board"
 	import { moves } from "@/ts/moves/moves"
-	import { move_start_coord, current_color } from "@/ts/stores"
+	import { move_start_coord } from "@/ts/stores"
 	import { key, switch_color } from "@/ts/utils"
 
 	import Status from "./Status.svelte"
@@ -12,6 +12,7 @@
 
 	let possible_keys: Coord_Key[] | null = null
 	let move_counter = 0
+	let current_color: Color = "white"
 
 	function handle_board_click(event: CustomEvent<Coord>) {
 		const coord = event.detail
@@ -24,7 +25,7 @@
 
 	function start_move(coord: Coord) {
 		const piece = board.get(coord)
-		const ok = piece && piece.color == $current_color
+		const ok = piece && piece.color == current_color
 		if (ok) {
 			$move_start_coord = coord
 			possible_keys = moves(piece, coord, board).map(key)
@@ -47,14 +48,14 @@
 		board.set(coord, piece)
 		piece.moved = true
 		$move_start_coord = null
-		$current_color = switch_color($current_color)
+		current_color = switch_color(current_color)
 		possible_keys = null
 		move_counter += 1
 	}
 
 	function handle_restart() {
 		board.reset()
-		$current_color = "white"
+		current_color = "white"
 		$move_start_coord = null
 		possible_keys = null
 		move_counter = 0
@@ -62,5 +63,5 @@
 </script>
 
 <Board {move_counter} {board} on:click={handle_board_click} />
-<Status />
+<Status {current_color} />
 <Menu on:restart={handle_restart} />
