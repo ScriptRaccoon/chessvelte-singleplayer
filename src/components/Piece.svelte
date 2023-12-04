@@ -1,16 +1,10 @@
 <script lang="ts">
-	import type { Piece, Position, Coord } from "@/ts/types"
-	import { to_position } from "@/ts/utils"
+	import type { Piece, Coord } from "@/ts/types"
 	export let coord: Coord
 	export let piece: Piece
-	const position: Position = to_position(coord)
 </script>
 
-<div
-	class="piece {piece.color}"
-	style:--x={position[1]}
-	style:--y={position[0]}
->
+<div class="piece {piece.color}" style:--x={coord[1]} style:--y={coord[0]}>
 	{piece.type}
 </div>
 

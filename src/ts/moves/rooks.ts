@@ -1,14 +1,14 @@
 import { COLS, ROWS } from "@/ts/config"
-import type { Board, Coord, Piece, Position } from "@/ts/types"
-import { to_coord, to_position } from "@/ts/utils"
+import type { Coord, Piece } from "@/ts/types"
+import type { Board } from "../Board"
 
 export function rook_moves(rook: Piece, coord: Coord, board: Board): Coord[] {
-	const [row, col] = to_position(coord)
+	const [row, col] = coord
 
 	// horizontal moves to the right
-	const moves_to_right: Position[] = []
+	const moves_to_right: Coord[] = []
 	for (let i = col + 1; i < COLS.length; i++) {
-		const piece = board[to_coord([row, i])]
+		const piece = board.get([row, i])
 		if (piece) {
 			if (piece.color != rook.color) {
 				moves_to_right.push([row, i])
@@ -20,9 +20,9 @@ export function rook_moves(rook: Piece, coord: Coord, board: Board): Coord[] {
 	}
 
 	// horizontal moves to the left
-	const moves_to_left: Position[] = []
+	const moves_to_left: Coord[] = []
 	for (let i = col - 1; i >= 0; i--) {
-		const piece = board[to_coord([row, i])]
+		const piece = board.get([row, i])
 		if (piece) {
 			if (piece.color != rook.color) {
 				moves_to_left.push([row, i])
@@ -34,9 +34,9 @@ export function rook_moves(rook: Piece, coord: Coord, board: Board): Coord[] {
 	}
 
 	// vertical moves to the bottom
-	const moves_to_bottom: Position[] = []
+	const moves_to_bottom: Coord[] = []
 	for (let i = row + 1; i < ROWS.length; i++) {
-		const piece = board[to_coord([i, col])]
+		const piece = board.get([i, col])
 		if (piece) {
 			if (piece.color != rook.color) {
 				moves_to_bottom.push([i, col])
@@ -48,9 +48,9 @@ export function rook_moves(rook: Piece, coord: Coord, board: Board): Coord[] {
 	}
 
 	// vertical moves to the top
-	const moves_to_top: Position[] = []
+	const moves_to_top: Coord[] = []
 	for (let i = row - 1; i >= 0; i--) {
-		const piece = board[to_coord([i, col])]
+		const piece = board.get([i, col])
 		if (piece) {
 			if (piece.color != rook.color) {
 				moves_to_top.push([i, col])
@@ -66,5 +66,5 @@ export function rook_moves(rook: Piece, coord: Coord, board: Board): Coord[] {
 		...moves_to_right,
 		...moves_to_top,
 		...moves_to_bottom,
-	].map(to_coord)
+	]
 }

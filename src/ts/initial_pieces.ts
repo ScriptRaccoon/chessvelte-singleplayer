@@ -1,6 +1,6 @@
-import type { Board } from "@/ts/types"
+import type { Piece, Coord_Key } from "./types"
 
-const black_pieces: Board = {
+const black_pieces: Record<Coord_Key, Piece> = {
 	"00": {
 		type: "rook",
 		color: "black",
@@ -82,7 +82,7 @@ const black_pieces: Board = {
 		moved: false,
 	},
 }
-const white_pieces: Board = {
+const white_pieces: Record<Coord_Key, Piece> = {
 	"70": {
 		type: "rook",
 		color: "white",
@@ -165,7 +165,7 @@ const white_pieces: Board = {
 	},
 }
 
-export const initial_board: Board = {
-	...white_pieces,
+export const initial_pieces: Record<Coord_Key, Piece> = {
 	...black_pieces,
-} as const
+	...white_pieces,
+}

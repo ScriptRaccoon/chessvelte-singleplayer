@@ -1,4 +1,6 @@
-export type Position = [number, number]
+export type Coord = [number, number]
+
+export type Coord_Key = string
 
 export type Color = "black" | "white"
 
@@ -15,6 +17,3 @@ export type Piece = {
 	color: Color
 	moved: boolean
 }
-
-export type Coord = string
-export type Board = Record<Coord, Piece | undefined>

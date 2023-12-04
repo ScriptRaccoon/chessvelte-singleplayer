@@ -1,4 +1,6 @@
-import type { Board, Piece, Coord } from "../types"
+import type { Board } from "../Board"
+import { type Piece, type Coord } from "../types"
+
 import { pawn_moves } from "./pawns"
 import { rook_moves } from "./rooks"
 

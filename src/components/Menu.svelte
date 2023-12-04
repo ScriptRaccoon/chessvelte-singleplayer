@@ -1,15 +1,10 @@
 <script lang="ts">
-	import { initial_board } from "@/ts/initial_board"
-	import { board, current_color } from "@/ts/stores"
-
-	function restart_game() {
-		$board = JSON.parse(JSON.stringify(initial_board))
-		$current_color = "white"
-	}
+	import { createEventDispatcher } from "svelte"
+	const dispatch = createEventDispatcher()
 </script>
 
 <menu>
-	<button on:click={restart_game}>Restart</button>
+	<button on:click={() => dispatch("restart")}>Restart</button>
 </menu>
 
 <style>
