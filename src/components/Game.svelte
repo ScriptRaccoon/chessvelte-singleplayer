@@ -1,11 +1,14 @@
 <script lang="ts">
 	import type { Coord, Coord_Key } from "@/ts/types"
-	import Board from "@/components/Board.svelte"
-	import Piece from "@/components/Piece.svelte"
+
 	import { board } from "@/ts/Board"
 	import { moves } from "@/ts/moves/moves"
 	import { move_start_coord, current_color } from "@/ts/stores"
 	import { key, switch_color } from "@/ts/utils"
+
+	import Status from "./Status.svelte"
+	import Menu from "./Menu.svelte"
+	import Board from "./Board.svelte"
 
 	let possible_keys: Coord_Key[] | null = null
 	let move_counter = 0
@@ -48,33 +51,16 @@
 		possible_keys = null
 		move_counter += 1
 	}
+
+	function handle_restart() {
+		board.reset()
+		$current_color = "white"
+		$move_start_coord = null
+		possible_keys = null
+		move_counter = 0
+	}
 </script>
 
-<section aria-label="game">
-	<div class="game">
-		<Board on:click={handle_board_click} />
-		{#key move_counter}
-			{#each board.coords as coord}
-				{@const piece = board.get(coord)}
-				{#if piece}
-					<Piece {coord} {piece} />
-				{/if}
-			{/each}
-		{/key}
-	</div>
-</section>
-
-<style>
-	.game {
-		box-sizing: content-box;
-		width: 80vmin;
-		height: 80vmin;
-		border: 0.4rem solid var(--border-color);
-		position: relative;
-	}
-
-	section {
-		display: flex;
-		justify-content: center;
-	}
-</style>
+<Board {move_counter} {board} on:click={handle_board_click} />
+<Status />
+<Menu on:restart={handle_restart} />
