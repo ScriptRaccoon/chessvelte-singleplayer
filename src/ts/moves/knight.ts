@@ -24,7 +24,5 @@ export function knight_moves(
 		return is_valid(_coord) && board.get(_coord)?.color != piece.color
 	})
 
-	console.dir(moves)
-
 	return moves
 }

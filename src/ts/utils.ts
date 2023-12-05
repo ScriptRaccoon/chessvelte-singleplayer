@@ -15,7 +15,7 @@ export function deep_copy<T>(obj: T): T {
 }
 
 export function key(coord: Coord): Coord_Key {
-	return String(coord[0]) + String(coord[1])
+	return `${coord[0]}${coord[1]}`
 }
 
 export function unkey(key: Coord_Key): Coord {
@@ -25,4 +25,8 @@ export function unkey(key: Coord_Key): Coord {
 export function has_coord(coords: Coord[] | null, coord: Coord): boolean {
 	if (!coords) return false
 	return coords.some((_coord) => key(_coord) == key(coord))
+}
+
+export function typed_keys<T extends {}>(obj: T): (keyof T)[] {
+	return Object.keys(obj) as (keyof T)[]
 }

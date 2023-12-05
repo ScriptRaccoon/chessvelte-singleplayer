@@ -1,6 +1,6 @@
 export type Coord = [number, number]
 
-export type Coord_Key = string
+export type Coord_Key = `${number}${number}`
 
 export type Color = "black" | "white"
 

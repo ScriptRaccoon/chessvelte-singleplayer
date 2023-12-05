@@ -1,6 +1,6 @@
 import type { Coord, Piece, Coord_Key } from "./types"
 import { initial_pieces } from "./initial_pieces"
-import { deep_copy, key, unkey } from "./utils"
+import { deep_copy, key, typed_keys, unkey } from "./utils"
 
 export class Board {
 	private map: Record<Coord_Key, Piece | undefined>
@@ -30,7 +30,7 @@ export class Board {
 	}
 
 	public get coords(): Coord[] {
-		return Object.keys(this.map).map(unkey)
+		return typed_keys(this.map).map(unkey)
 	}
 }
 

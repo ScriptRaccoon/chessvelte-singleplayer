@@ -3,15 +3,14 @@
 	import { COLS, ROWS, SIZE } from "@/ts/config"
 	import Square from "./Square.svelte"
 	import Piece from "./Piece.svelte"
-	import { has_coord, key } from "@/ts/utils"
+	import { has_coord } from "@/ts/utils"
 	import type { Coord } from "@/ts/types"
 
 	export let move_counter = 0
 	export let board: Board
 	export let possible_moves: Coord[] | null = null
 
-	let SHOW_COORDS = import.meta.env.VITE_SHOW_COORDS === "1"
-	console.log(SHOW_COORDS)
+	const SHOW_COORDS = import.meta.env.VITE_SHOW_COORDS === "1"
 </script>
 
 <div class="board">

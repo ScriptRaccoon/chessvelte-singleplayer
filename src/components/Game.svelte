@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Coord, Coord_Key, Color } from "@/ts/types"
+	import type { Coord, Color } from "@/ts/types"
 
 	import { board } from "@/ts/Board"
 	import { moves } from "@/ts/moves/moves"
 	import { move_start_coord } from "@/ts/stores"
-	import { has_coord, key, switch_color } from "@/ts/utils"
+	import { has_coord, switch_color } from "@/ts/utils"
 
 	import Status from "./Status.svelte"
 	import Menu from "./Menu.svelte"

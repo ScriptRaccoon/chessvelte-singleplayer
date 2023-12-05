@@ -3,7 +3,7 @@
 	export let coord: Coord
 	export let piece: Piece
 
-	$: image_src = new URL(
+	const image_src = new URL(
 		`../assets/${piece.type}_${piece.color}.svg`,
 		import.meta.url
 	).href
