@@ -46,5 +46,3 @@ export class Board {
 		this.set(move.end, piece)
 	}
 }
-
-export const board = new Board()

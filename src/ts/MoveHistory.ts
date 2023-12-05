@@ -15,5 +15,3 @@ export class MoveHistory {
 		}
 	}
 }
-
-export const move_history = new MoveHistory()

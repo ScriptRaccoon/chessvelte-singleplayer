@@ -1,14 +1,17 @@
 <script lang="ts">
 	import type { Coord, Move } from "@/ts/types"
-	import { board } from "@/ts/Board"
 	import { moves } from "@/ts/moves/moves"
 	import { move_start_coord, current_color } from "@/ts/stores"
 	import { key } from "@/ts/utils"
-	import { move_history } from "@/ts/MoveHistory"
+	import { MoveHistory } from "@/ts/MoveHistory"
+	import { Board as BoardLogic } from "@/ts/Board"
 
 	import Status from "./Status.svelte"
 	import Menu from "./Menu.svelte"
-	import Board from "./Board.svelte"
+	import { default as BoardComponent } from "./Board.svelte"
+
+	const board = new BoardLogic()
+	const move_history = new MoveHistory()
 
 	let possible_moves: Move[] | null = null
 	let move_counter = 0
@@ -64,7 +67,7 @@
 	}
 </script>
 
-<Board
+<BoardComponent
 	{move_counter}
 	{board}
 	on:click={handle_board_click}

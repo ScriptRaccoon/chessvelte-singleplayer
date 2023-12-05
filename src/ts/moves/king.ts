@@ -1,4 +1,4 @@
-import type { Piece, Coord, Move } from "@/ts/types"
+import type { Piece, Coord, Move } from "../types"
 import type { Board } from "../Board"
 import { is_valid } from "../utils"
 import { is_attacked } from "./attack"

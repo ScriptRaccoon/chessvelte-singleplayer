@@ -1,5 +1,4 @@
 import type { Board } from "../Board"
-import type { MoveHistory } from "../MoveHistory"
 import type { Move } from "../types"
 import { key } from "../utils"
 import { moves } from "./moves"

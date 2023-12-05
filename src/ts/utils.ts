@@ -1,4 +1,4 @@
-import type { Coord, Coord_Key } from "@/ts/types"
+import type { Coord, Coord_Key } from "./types"
 import { ROWS, COLS } from "./config"
 
 export function is_valid(coord: Coord): boolean {
