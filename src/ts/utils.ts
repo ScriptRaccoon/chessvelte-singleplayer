@@ -1,9 +1,5 @@
-import type { Color, Coord, Coord_Key } from "@/ts/types"
+import type { Coord, Coord_Key } from "@/ts/types"
 import { ROWS, COLS } from "./config"
-
-export function switch_color(_color: Color): Color {
-	return _color === "white" ? "black" : "white"
-}
 
 export function is_valid(coord: Coord): boolean {
 	const [row, col] = coord
