@@ -1,5 +1,5 @@
 <header>
-	<h1>Chessvelte</h1>
+	<h1>Chessvelte [WIP]</h1>
 </header>
 
 <style lang="scss">
