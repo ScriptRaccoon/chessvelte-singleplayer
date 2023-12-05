@@ -12,11 +12,11 @@ export function moves(
 	piece: Piece,
 	coord: Coord,
 	board: Board,
-	history: MoveHistory
+	move_history: MoveHistory
 ): Coord[] {
 	switch (piece.type) {
 		case "pawn":
-			return pawn_moves(piece, coord, board, history)
+			return pawn_moves(piece, coord, board, move_history)
 		case "rook":
 			return rook_moves(piece, coord, board)
 		case "bishop":

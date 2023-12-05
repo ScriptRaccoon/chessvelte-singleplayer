@@ -29,7 +29,7 @@
 		const ok = piece && piece.color == current_color
 		if (ok) {
 			$move_start_coord = coord
-			possible_moves = moves(piece, coord, board, history)
+			possible_moves = moves(piece, coord, board, move_history)
 		}
 	}
 
