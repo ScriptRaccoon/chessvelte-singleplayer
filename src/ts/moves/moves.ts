@@ -1,6 +1,7 @@
 import type { Board } from "../Board"
 import { type Piece, type Coord } from "../types"
 import { bishop_moves } from "./bishop"
+import { knight_moves } from "./knight"
 
 import { pawn_moves } from "./pawns"
 import { queen_moves } from "./queen"
@@ -15,7 +16,7 @@ export function moves(piece: Piece, coord: Coord, board: Board): Coord[] {
 		case "bishop":
 			return bishop_moves(piece, coord, board)
 		case "knight":
-			return []
+			return knight_moves(piece, coord, board)
 		case "queen":
 			return queen_moves(piece, coord, board)
 		case "king":
