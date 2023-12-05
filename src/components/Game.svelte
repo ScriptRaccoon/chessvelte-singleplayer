@@ -10,7 +10,7 @@
 	import Menu from "./Menu.svelte"
 	import Board from "./Board.svelte"
 
-	let possible_keys: Coord_Key[] | null = null
+	let possible_moves: Coord[] | null = null
 	let move_counter = 0
 	let current_color: Color = "white"
 
@@ -28,7 +28,7 @@
 		const ok = piece && piece.color == current_color
 		if (ok) {
 			$move_start_coord = coord
-			possible_keys = moves(piece, coord, board).map(key)
+			possible_moves = moves(piece, coord, board)
 		}
 	}
 
@@ -38,8 +38,8 @@
 			$move_start_coord = null
 			return
 		}
-		if (!possible_keys) return
-		if (!possible_keys.includes(key(coord))) {
+		if (!possible_moves) return
+		if (!possible_moves.map(key).includes(key(coord))) {
 			return
 		}
 		const piece = board.get($move_start_coord)
@@ -49,7 +49,7 @@
 		piece.moved = true
 		$move_start_coord = null
 		current_color = switch_color(current_color)
-		possible_keys = null
+		possible_moves = null
 		move_counter += 1
 	}
 
@@ -57,7 +57,7 @@
 		board.reset()
 		current_color = "white"
 		$move_start_coord = null
-		possible_keys = null
+		possible_moves = null
 		move_counter = 0
 	}
 </script>
