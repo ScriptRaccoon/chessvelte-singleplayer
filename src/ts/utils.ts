@@ -21,3 +21,8 @@ export function key(coord: Coord): Coord_Key {
 export function unkey(key: Coord_Key): Coord {
 	return [Number(key[0]), Number(key[1])]
 }
+
+export function has_coord(coords: Coord[] | null, coord: Coord): boolean {
+	if (!coords) return false
+	return coords.some((_coord) => key(_coord) == key(coord))
+}

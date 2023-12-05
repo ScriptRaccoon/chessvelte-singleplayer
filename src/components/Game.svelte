@@ -4,7 +4,7 @@
 	import { board } from "@/ts/Board"
 	import { moves } from "@/ts/moves/moves"
 	import { move_start_coord } from "@/ts/stores"
-	import { key, switch_color } from "@/ts/utils"
+	import { has_coord, key, switch_color } from "@/ts/utils"
 
 	import Status from "./Status.svelte"
 	import Menu from "./Menu.svelte"
@@ -38,10 +38,7 @@
 			$move_start_coord = null
 			return
 		}
-		if (!possible_moves) return
-		if (!possible_moves.map(key).includes(key(coord))) {
-			return
-		}
+		if (!has_coord(possible_moves, coord)) return
 		const piece = board.get($move_start_coord)
 		if (!piece) return
 		board.remove($move_start_coord)

@@ -3,7 +3,7 @@
 	import { COLS, ROWS, SIZE } from "@/ts/config"
 	import Square from "./Square.svelte"
 	import Piece from "./Piece.svelte"
-	import { key } from "@/ts/utils"
+	import { has_coord, key } from "@/ts/utils"
 	import type { Coord } from "@/ts/types"
 
 	export let move_counter = 0
@@ -18,8 +18,7 @@
 				<Square
 					coord={[row, col]}
 					light={(row + col) % 2 == 0}
-					possible={possible_moves != null &&
-						possible_moves?.map(key).includes(key([row, col]))}
+					possible={has_coord(possible_moves, [row, col])}
 					on:click
 				/>
 			{/each}
