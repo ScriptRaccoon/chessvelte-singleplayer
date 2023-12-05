@@ -62,6 +62,6 @@
 	}
 </script>
 
-<Board {move_counter} {board} on:click={handle_board_click} />
+<Board {move_counter} {board} on:click={handle_board_click} {possible_moves} />
 <Status {current_color} />
 <Menu on:restart={handle_restart} />

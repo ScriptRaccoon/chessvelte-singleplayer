@@ -5,6 +5,7 @@
 
 	export let coord: Coord
 	export let light: boolean
+	export let possible: boolean
 
 	const dispatch = createEventDispatcher<{ click: Coord }>()
 
@@ -16,6 +17,7 @@
 	class:dark={!light}
 	on:click={() => dispatch("click", coord)}
 	class:selected
+	class:possible
 >
 	<!-- TESTING: -->
 	<span class="coord">
@@ -54,5 +56,12 @@
 
 	.dark {
 		background-color: var(--dark-square-color);
+	}
+
+	.possible::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-color: var(--highlight-color);
 	}
 </style>
