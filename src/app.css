@@ -29,7 +29,8 @@ button {
 	background: none;
 	border: none;
 	cursor: pointer;
-	&:disabled {
-		cursor: initial;
-	}
+}
+
+img {
+	display: block;
 }

@@ -2,13 +2,24 @@
 	import type { Piece, Coord } from "@/ts/types"
 	export let coord: Coord
 	export let piece: Piece
+
+	$: image_src = new URL(
+		`../assets/${piece.type}_${piece.color}.svg`,
+		import.meta.url
+	).href
 </script>
 
-<div class="piece {piece.color}" style:--x={coord[1]} style:--y={coord[0]}>
-	{piece.type}
+<div>
+	<img
+		class="piece"
+		style:--x={coord[1]}
+		style:--y={coord[0]}
+		src={image_src}
+		alt="{piece.type} {piece.color}"
+	/>
 </div>
 
-<style lang="scss">
+<style>
 	.piece {
 		pointer-events: none;
 		top: 0;
@@ -20,14 +31,5 @@
 		justify-content: center;
 		align-items: center;
 		transform: translate(calc(var(--x) * 10vmin), calc(var(--y) * 10vmin));
-		&.black {
-			color: black;
-		}
-		&.white {
-			color: white;
-			text-shadow: 1px 1px black;
-		}
-		font-weight: bold;
-		font-size: 1.25rem;
 	}
 </style>
