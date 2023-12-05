@@ -2,7 +2,7 @@
 	<h1>Chessvelte [WIP]</h1>
 </header>
 
-<style lang="scss">
+<style>
 	header {
 		padding-block: 1rem;
 	}

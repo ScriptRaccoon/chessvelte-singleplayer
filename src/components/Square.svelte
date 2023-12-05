@@ -27,13 +27,14 @@
 	{/if}
 </button>
 
-<style lang="scss">
+<style>
 	button {
 		position: relative;
-		&:focus-visible {
-			outline: 0.1rem solid white;
-			outline-offset: -0.1rem;
-		}
+	}
+
+	button:focus-visible {
+		outline: 0.1rem solid white;
+		outline-offset: -0.1rem;
 	}
 
 	.coord {

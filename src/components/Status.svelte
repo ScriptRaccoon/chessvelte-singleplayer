@@ -8,7 +8,7 @@
 	Turn: {current_color}
 </section>
 
-<style lang="scss">
+<style>
 	section {
 		text-align: center;
 		padding-block: 0.5rem;
