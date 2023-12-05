@@ -8,7 +8,7 @@ export function pawn_moves(
 	pawn: Piece,
 	coord: Coord,
 	board: Board,
-	move_history: MoveHistory
+	move_history: MoveHistory | null
 ): Move[] {
 	const [row, col] = coord
 	const moves: Move[] = []
@@ -54,8 +54,9 @@ export function pawn_moves(
 	}
 
 	// en passant
-	const last_move = move_history.get_last()
+	const last_move = move_history?.get_last()
 	if (!last_move) return moves
+
 	const { start, end, piece, type } = last_move
 	const en_passant_applies =
 		type == "regular" &&

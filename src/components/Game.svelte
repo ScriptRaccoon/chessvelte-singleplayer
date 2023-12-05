@@ -42,15 +42,9 @@
 		}
 		const move = possible_moves?.find((move) => key(move.end) == key(coord))
 		if (!move) return
-
 		move_history.push(move)
-		const { piece, capture_at } = move
-
-		if (capture_at) board.remove(capture_at)
-		board.remove($move_start_coord)
-		board.set(coord, piece)
-		piece.moved = true
-
+		board.apply_move(move)
+		move.piece.moved = true
 		switch_player()
 	}
 

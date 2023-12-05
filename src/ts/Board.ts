@@ -1,12 +1,18 @@
-import type { Coord, Piece, Coord_Key } from "./types"
+import type { Coord, Piece, Coord_Key, Move } from "./types"
 import { initial_pieces } from "./initial_pieces"
 import { deep_copy, key, typed_keys, unkey } from "./utils"
 
-export class Board {
-	private map: Record<Coord_Key, Piece | undefined>
+type Map = Record<Coord_Key, Piece | undefined>
 
-	constructor() {
-		this.map = deep_copy(initial_pieces)
+export class Board {
+	private map: Map
+
+	constructor(map: Map | undefined = undefined) {
+		this.map = map ?? deep_copy(initial_pieces)
+	}
+
+	public copy(): Board {
+		return new Board(deep_copy(this.map))
 	}
 
 	public get(coord: Coord): Piece | undefined {
@@ -31,6 +37,13 @@ export class Board {
 
 	public get coords(): Coord[] {
 		return typed_keys(this.map).map(unkey)
+	}
+
+	public apply_move(move: Move): void {
+		const { piece, capture_at } = move
+		if (capture_at) this.remove(capture_at)
+		this.remove(move.start)
+		this.set(move.end, piece)
 	}
 }
 

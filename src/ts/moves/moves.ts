@@ -13,7 +13,8 @@ export function moves(
 	piece: Piece,
 	coord: Coord,
 	board: Board,
-	move_history: MoveHistory
+	move_history: MoveHistory | null = null,
+	options: { check_threats: boolean } = { check_threats: true }
 ): Move[] {
 	switch (piece.type) {
 		case "pawn":
@@ -27,7 +28,7 @@ export function moves(
 		case "queen":
 			return queen_moves(piece, coord, board)
 		case "king":
-			return king_moves(piece, coord, board)
+			return king_moves(piece, coord, board, options)
 	}
 	return []
 }
