@@ -36,6 +36,7 @@
 		if (!$move_start_coord) return
 		if ($move_start_coord.toString() == coord.toString()) {
 			$move_start_coord = null
+			possible_moves = null
 			return
 		}
 		if (!has_coord(possible_moves, coord)) return
