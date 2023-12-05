@@ -4,16 +4,15 @@ export type Coord_Key = `${number}${number}`
 
 export type Color = "black" | "white"
 
-export type Piece_Type =
-	| "pawn"
-	| "rook"
-	| "knight"
-	| "bishop"
-	| "queen"
-	| "king"
-
 export type Piece = {
-	type: Piece_Type
+	type: "pawn" | "rook" | "knight" | "bishop" | "queen" | "king"
 	color: Color
 	moved: boolean
+}
+
+export type Move = {
+	type: "regular" | "en passant" | "promotion" | "castle"
+	start: Coord
+	end: Coord
+	piece: Piece
 }

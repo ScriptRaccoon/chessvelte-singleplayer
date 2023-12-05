@@ -2,8 +2,14 @@ import type { Piece, Coord } from "@/ts/types"
 import { is_valid } from "../utils"
 import { DIRECTION } from "../config"
 import type { Board } from "../Board"
+import type { MoveHistory } from "../MoveHistory"
 
-export function pawn_moves(pawn: Piece, coord: Coord, board: Board): Coord[] {
+export function pawn_moves(
+	pawn: Piece,
+	coord: Coord,
+	board: Board,
+	history: MoveHistory
+): Coord[] {
 	const [row, col] = coord
 	const moves: Coord[] = []
 	const direction: number = DIRECTION[pawn.color]

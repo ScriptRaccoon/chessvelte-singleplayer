@@ -1,10 +1,11 @@
 <script lang="ts">
-	import type { Coord, Color } from "@/ts/types"
+	import type { Coord, Color, Move } from "@/ts/types"
 
 	import { board } from "@/ts/Board"
 	import { moves } from "@/ts/moves/moves"
 	import { move_start_coord } from "@/ts/stores"
-	import { has_coord, switch_color } from "@/ts/utils"
+	import { deep_copy, has_coord, switch_color } from "@/ts/utils"
+	import { move_history } from "@/ts/MoveHistory"
 
 	import Status from "./Status.svelte"
 	import Menu from "./Menu.svelte"
@@ -28,7 +29,7 @@
 		const ok = piece && piece.color == current_color
 		if (ok) {
 			$move_start_coord = coord
-			possible_moves = moves(piece, coord, board)
+			possible_moves = moves(piece, coord, board, history)
 		}
 	}
 
@@ -42,6 +43,15 @@
 		if (!has_coord(possible_moves, coord)) return
 		const piece = board.get($move_start_coord)
 		if (!piece) return
+
+		const move: Move = {
+			type: "regular",
+			start: $move_start_coord,
+			end: coord,
+			piece: deep_copy(piece),
+		}
+		move_history.push(move)
+
 		board.remove($move_start_coord)
 		board.set(coord, piece)
 		piece.moved = true
