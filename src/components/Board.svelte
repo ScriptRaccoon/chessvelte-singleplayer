@@ -8,7 +8,7 @@
 
 	export let move_counter = 0
 	export let board: Board
-	export let possible_moves: Coord[] | null = null
+	export let possible_targets: Coord[] | null = null
 
 	const SHOW_COORDS = import.meta.env.VITE_SHOW_COORDS === "1"
 </script>
@@ -20,7 +20,7 @@
 				<Square
 					coord={[row, col]}
 					light={(row + col) % 2 == 0}
-					possible={has_coord(possible_moves, [row, col])}
+					possible={has_coord(possible_targets, [row, col])}
 					{SHOW_COORDS}
 					on:click
 				/>

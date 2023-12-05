@@ -1,15 +1,11 @@
-import type { Piece, Coord } from "@/ts/types"
+import type { Piece, Coord, Move } from "@/ts/types"
 import { is_valid } from "../utils"
 import type { Board } from "../Board"
 
-export function knight_moves(
-	piece: Piece,
-	coord: Coord,
-	board: Board
-): Coord[] {
+export function knight_moves(piece: Piece, coord: Coord, board: Board): Move[] {
 	const [row, col] = coord
 
-	const all_moves: Coord[] = [
+	const targets: Coord[] = [
 		[row + 1, col + 2],
 		[row - 1, col + 2],
 		[row + 2, col + 1],
@@ -20,9 +16,29 @@ export function knight_moves(
 		[row - 2, col - 1],
 	]
 
-	const moves: Coord[] = all_moves.filter((_coord) => {
-		return is_valid(_coord) && board.get(_coord)?.color != piece.color
-	})
+	const moves: Move[] = []
+
+	for (const target of targets) {
+		if (!is_valid(target)) continue
+		const other = board.get(target)
+		if (!other) {
+			moves.push({
+				start: coord,
+				end: target,
+				piece,
+				type: "regular",
+				capture_at: null,
+			})
+		} else if (other.color != piece.color) {
+			moves.push({
+				start: coord,
+				end: target,
+				piece,
+				type: "regular",
+				capture_at: target,
+			})
+		}
+	}
 
 	return moves
 }

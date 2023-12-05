@@ -15,4 +15,5 @@ export type Move = {
 	start: Coord
 	end: Coord
 	piece: Piece
+	capture_at: Coord | null
 }

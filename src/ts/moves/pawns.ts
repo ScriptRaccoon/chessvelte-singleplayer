@@ -1,4 +1,4 @@
-import type { Piece, Coord } from "@/ts/types"
+import type { Piece, Coord, Move } from "@/ts/types"
 import { is_valid } from "../utils"
 import { DIRECTION } from "../config"
 import type { Board } from "../Board"
@@ -9,29 +9,47 @@ export function pawn_moves(
 	coord: Coord,
 	board: Board,
 	move_history: MoveHistory
-): Coord[] {
+): Move[] {
 	const [row, col] = coord
-	const moves: Coord[] = []
+	const moves: Move[] = []
 	const direction: number = DIRECTION[pawn.color]
 	const in_front: Coord = [row + direction, col]
 	const in_front2: Coord = [row + 2 * direction, col]
 
 	// move one step in front
 	if (is_valid(in_front) && !board.has(in_front)) {
-		moves.push(in_front)
+		moves.push({
+			start: coord,
+			end: in_front,
+			piece: pawn,
+			type: "regular",
+			capture_at: null,
+		})
 
 		// move two steps in front
 		if (!pawn.moved && is_valid(in_front2) && !board.has(in_front2)) {
-			moves.push(in_front2)
+			moves.push({
+				start: coord,
+				end: in_front2,
+				piece: pawn,
+				type: "regular",
+				capture_at: null,
+			})
 		}
 	}
 
 	// capturing move
 	for (const offset of [+1, -1]) {
-		const move: Coord = [row + direction, col + offset]
-		const captured_piece = board.get(move)
+		const end: Coord = [row + direction, col + offset]
+		const captured_piece = board.get(end)
 		if (captured_piece && captured_piece.color != pawn.color) {
-			moves.push(move)
+			moves.push({
+				start: coord,
+				end,
+				piece: pawn,
+				type: "regular",
+				capture_at: end,
+			})
 		}
 	}
 
@@ -47,9 +65,14 @@ export function pawn_moves(
 		end[0] == row &&
 		Math.abs(end[1] - col) == 1
 	if (en_passant_applies) {
-		moves.push([row + direction, end[1]])
+		moves.push({
+			start: coord,
+			end: [row + direction, end[1]],
+			piece: pawn,
+			type: "en passant",
+			capture_at: end,
+		})
 	}
-	// TODO: capture with en passant
 
 	return moves
 }

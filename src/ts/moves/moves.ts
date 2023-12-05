@@ -1,6 +1,6 @@
 import type { Board } from "../Board"
 import type { MoveHistory } from "../MoveHistory"
-import { type Piece, type Coord } from "../types"
+import { type Piece, type Coord, type Move } from "../types"
 import { bishop_moves } from "./bishop"
 import { knight_moves } from "./knight"
 
@@ -13,7 +13,7 @@ export function moves(
 	coord: Coord,
 	board: Board,
 	move_history: MoveHistory
-): Coord[] {
+): Move[] {
 	switch (piece.type) {
 		case "pawn":
 			return pawn_moves(piece, coord, board, move_history)
@@ -28,4 +28,5 @@ export function moves(
 		case "king":
 			return []
 	}
+	return []
 }
