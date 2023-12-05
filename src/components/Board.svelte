@@ -9,6 +9,9 @@
 	export let move_counter = 0
 	export let board: Board
 	export let possible_moves: Coord[] | null = null
+
+	let SHOW_COORDS = import.meta.env.VITE_SHOW_COORDS === "1"
+	console.log(SHOW_COORDS)
 </script>
 
 <div class="board">
@@ -19,6 +22,7 @@
 					coord={[row, col]}
 					light={(row + col) % 2 == 0}
 					possible={has_coord(possible_moves, [row, col])}
+					{SHOW_COORDS}
 					on:click
 				/>
 			{/each}

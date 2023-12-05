@@ -6,6 +6,7 @@
 	export let coord: Coord
 	export let light: boolean
 	export let possible: boolean
+	export let SHOW_COORDS: boolean
 
 	const dispatch = createEventDispatcher<{ click: Coord }>()
 
@@ -19,10 +20,11 @@
 	class:selected
 	class:possible
 >
-	<!-- TESTING: -->
-	<span class="coord">
-		{coord}
-	</span>
+	{#if SHOW_COORDS}
+		<span class="coord">
+			{coord}
+		</span>
+	{/if}
 </button>
 
 <style lang="scss">
