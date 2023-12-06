@@ -27,7 +27,6 @@ export function knight_moves(piece: Piece, coord: Coord, board: Board): Move[] {
 				end: target,
 				piece,
 				type: "regular",
-				capture_at: null,
 			})
 		} else if (other.color != piece.color) {
 			moves.push({

@@ -40,18 +40,17 @@ export class Board {
 	}
 
 	public apply_move(move: Move): void {
-		const { piece, capture_at } = move
-		if (capture_at) this.remove(capture_at)
+		if (move.capture_at) this.remove(move.capture_at)
 		this.remove(move.start)
-		if (move.type === "promotion" && move.promotion_type) {
+		if (move.type === "promotion") {
 			const new_piece: Piece = {
-				type: move.promotion_type,
-				color: piece.color,
+				type: move.promotion_type!,
+				color: move.piece.color,
 				moved: false,
 			}
 			this.set(move.end, new_piece)
 		} else {
-			this.set(move.end, piece)
+			this.set(move.end, move.piece)
 		}
 	}
 }

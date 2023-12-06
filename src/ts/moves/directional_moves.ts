@@ -31,7 +31,6 @@ export function directional_moves(directions: [number, number][]) {
 						end,
 						piece,
 						type: "regular",
-						capture_at: null,
 					})
 				}
 			}

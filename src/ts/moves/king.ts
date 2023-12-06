@@ -49,7 +49,6 @@ export function king_moves(
 				end: target,
 				piece: king,
 				type: "regular",
-				capture_at: null,
 			})
 		}
 	}

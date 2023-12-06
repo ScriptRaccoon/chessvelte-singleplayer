@@ -24,7 +24,6 @@ export function pawn_moves(
 			end: in_front,
 			piece: pawn,
 			type: in_front[0] == base_line ? "promotion" : "regular",
-			capture_at: null,
 		})
 
 		// move two steps in front
@@ -34,7 +33,6 @@ export function pawn_moves(
 				end: in_front2,
 				piece: pawn,
 				type: "regular",
-				capture_at: null,
 			})
 		}
 	}
