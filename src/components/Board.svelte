@@ -24,7 +24,7 @@
 				<Square
 					coord={[row, col]}
 					light={(row + col) % 2 == 0}
-					possible={has_coord(possible_targets, [row, col])}
+					highlighted={has_coord(possible_targets, [row, col])}
 					{SHOW_COORDS}
 					on:click
 				/>

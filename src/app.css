@@ -8,8 +8,8 @@
 	--light-square-color: hsl(40, 70%, 60%);
 	--dark-square-color: hsl(20, 82%, 30%);
 	--border-color: hsl(20, 82%, 20%);
-	--selected-color: rgba(0, 200, 0, 0.3);
-	--highlight-color: rgba(0, 200, 0, 0.15);
+	--selected-color: rgba(129, 205, 213, 0.9);
+	--highlight-color: rgba(129, 205, 213, 0.5);
 }
 
 body {
@@ -29,6 +29,11 @@ button {
 	background: none;
 	border: none;
 	cursor: pointer;
+	outline: none;
+}
+
+button:focus-visible {
+	outline: 0.1rem solid white;
 }
 
 img {

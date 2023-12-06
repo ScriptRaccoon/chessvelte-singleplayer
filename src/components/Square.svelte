@@ -5,7 +5,7 @@
 
 	export let coord: Coord
 	export let light: boolean
-	export let possible: boolean
+	export let highlighted: boolean
 	export let SHOW_COORDS: boolean
 
 	const dispatch = createEventDispatcher<{ click: Coord }>()
@@ -14,11 +14,12 @@
 </script>
 
 <button
+	class="square"
 	class:light
 	class:dark={!light}
 	on:click={() => dispatch("click", coord)}
 	class:selected
-	class:possible
+	class:highlighted
 >
 	{#if SHOW_COORDS}
 		<span class="coord">
@@ -28,13 +29,31 @@
 </button>
 
 <style>
-	button {
+	.square {
 		position: relative;
+		outline-offset: -0.1rem;
 	}
 
-	button:focus-visible {
-		outline: 0.1rem solid white;
-		outline-offset: -0.1rem;
+	.square.light {
+		background-color: var(--light-square-color);
+	}
+
+	.square.dark {
+		background-color: var(--dark-square-color);
+	}
+
+	.square.selected::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-color: var(--selected-color);
+	}
+
+	.square.highlighted::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-color: var(--highlight-color);
 	}
 
 	.coord {
@@ -44,27 +63,5 @@
 		font-size: 0.8rem;
 		font-family: monospace;
 		color: white;
-	}
-
-	.selected::before {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background-color: var(--selected-color);
-	}
-
-	.light {
-		background-color: var(--light-square-color);
-	}
-
-	.dark {
-		background-color: var(--dark-square-color);
-	}
-
-	.possible::before {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background-color: var(--highlight-color);
 	}
 </style>
