@@ -17,4 +17,5 @@ export type Move = {
 	piece: Piece
 	capture_at?: Coord
 	promotion_type?: Piece["type"]
+	associated_move?: Move
 }

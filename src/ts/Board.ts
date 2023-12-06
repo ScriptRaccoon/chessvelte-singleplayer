@@ -49,6 +49,9 @@ export class Board {
 				moved: false,
 			}
 			this.set(move.end, new_piece)
+		} else if (move.type === "castle") {
+			this.set(move.end, move.piece)
+			if (move.associated_move) this.apply_move(move.associated_move)
 		} else {
 			this.set(move.end, move.piece)
 		}
