@@ -15,7 +15,7 @@ export function pawn_moves(
 	const direction: number = DIRECTION[pawn.color]
 	const in_front: Coord = [row + direction, col]
 	const in_front2: Coord = [row + 2 * direction, col]
-	const base_line = direction > 0 ? ROWS.length : 0
+	const base_line = ROWS.at(direction === 1 ? -1 : 0)
 
 	// move one step in front
 	if (is_valid(in_front) && !board.has(in_front)) {

@@ -20,7 +20,7 @@
 
 	$: possible_targets = possible_moves?.map((move) => move.end) ?? null
 
-	function handle_board_click(event: CustomEvent<Coord>) {
+	function handle_board_click(event: CustomEvent<Coord>): void {
 		const coord = event.detail
 		if ($move_start_coord) {
 			generate_move(coord)
@@ -29,7 +29,7 @@
 		}
 	}
 
-	function start_move(coord: Coord) {
+	function start_move(coord: Coord): void {
 		const piece = board.get(coord)
 		const ok = piece?.color === $current_color
 		if (ok) {
@@ -62,19 +62,19 @@
 
 	function execute_move(move: Move): void {
 		move_history.push(move)
-		board.apply_move(move) //  TODO: handle promotion case there
+		board.apply_move(move)
 		move.piece.moved = true
 		switch_player()
 	}
 
-	function switch_player() {
+	function switch_player(): void {
 		$move_start_coord = null
 		possible_moves = null
 		current_color.switch()
 		move_counter += 1
 	}
 
-	function handle_restart() {
+	function handle_restart(): void {
 		board.reset()
 		current_color.reset()
 		$move_start_coord = null
