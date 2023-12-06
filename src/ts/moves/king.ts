@@ -54,7 +54,6 @@ export function king_moves(
 		}
 	}
 
-	// castling
 	if (can_castle_king_side(coord, king, board)) {
 		const rook_move: Move = {
 			start: [coord[0], COLS.length - 1],
@@ -65,6 +64,23 @@ export function king_moves(
 		const king_move: Move = {
 			start: coord,
 			end: [coord[0], coord[1] + 2],
+			piece: king,
+			type: "castle",
+			associated_move: rook_move,
+		}
+		moves.push(king_move)
+	}
+
+	if (can_castle_queen_side(coord, king, board)) {
+		const rook_move: Move = {
+			start: [coord[0], 0],
+			end: [coord[0], coord[1] - 1],
+			piece: board.get([coord[0], 0])!,
+			type: "regular",
+		}
+		const king_move: Move = {
+			start: coord,
+			end: [coord[0], coord[1] - 2],
 			piece: king,
 			type: "castle",
 			associated_move: rook_move,
@@ -89,6 +105,21 @@ function can_castle_king_side(
 		if (board.has([king_coord[0], col])) return false
 		// TODO: check threats to king on these positions
 	}
+	return true
+}
 
+function can_castle_queen_side(
+	king_coord: Coord,
+	king: Piece,
+	board: Board
+): boolean {
+	if (king.moved) return false
+	const rook_coord: Coord = [king_coord[0], 0]
+	const rook = board.get(rook_coord)
+	if (!rook || rook.moved || rook.type !== "rook") return false
+	for (let col = 1; col < king_coord[1]; col++) {
+		if (board.has([king_coord[0], col])) return false
+		// TODO: check threats to king on these positions
+	}
 	return true
 }
