@@ -1,7 +1,7 @@
 import type { Piece, Coord, Move } from "../types"
 import type { Board } from "../Board"
 import type { MoveHistory } from "../MoveHistory"
-import { DIRECTION } from "../config"
+import { DIRECTION, ROWS } from "../config"
 import { is_valid } from "../utils"
 
 export function pawn_moves(
@@ -15,6 +15,7 @@ export function pawn_moves(
 	const direction: number = DIRECTION[pawn.color]
 	const in_front: Coord = [row + direction, col]
 	const in_front2: Coord = [row + 2 * direction, col]
+	const base_line = direction > 0 ? ROWS.length : 0
 
 	// move one step in front
 	if (is_valid(in_front) && !board.has(in_front)) {
@@ -22,7 +23,7 @@ export function pawn_moves(
 			start: coord,
 			end: in_front,
 			piece: pawn,
-			type: "regular",
+			type: in_front[0] == base_line ? "promotion" : "regular",
 			capture_at: null,
 		})
 
@@ -40,15 +41,15 @@ export function pawn_moves(
 
 	// capturing move
 	for (const offset of [+1, -1]) {
-		const end: Coord = [row + direction, col + offset]
-		const captured_piece = board.get(end)
+		const target: Coord = [row + direction, col + offset]
+		const captured_piece = board.get(target)
 		if (captured_piece && captured_piece.color != pawn.color) {
 			moves.push({
 				start: coord,
-				end,
+				end: target,
 				piece: pawn,
-				type: "regular",
-				capture_at: end,
+				type: target[0] == base_line ? "promotion" : "regular",
+				capture_at: target,
 			})
 		}
 	}

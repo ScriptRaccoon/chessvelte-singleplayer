@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Coord, Move } from "@/ts/types"
+	import type { Coord, Move, Piece } from "@/ts/types"
 	import { moves } from "@/ts/moves/moves"
 	import { move_start_coord, current_color } from "@/ts/stores"
 	import { key } from "@/ts/utils"
@@ -15,13 +15,15 @@
 
 	let possible_moves: Move[] | null = null
 	let move_counter = 0
+	let during_promotion: boolean = false
+	let promote: (_: Piece["type"]) => void
 
 	$: possible_targets = possible_moves?.map((move) => move.end) ?? null
 
 	function handle_board_click(event: CustomEvent<Coord>) {
 		const coord = event.detail
 		if ($move_start_coord) {
-			finish_move(coord)
+			generate_move(coord)
 		} else {
 			start_move(coord)
 		}
@@ -36,17 +38,31 @@
 		}
 	}
 
-	function finish_move(coord: Coord): void {
+	function generate_move(coord: Coord): void {
 		if (!$move_start_coord) return
-		if ($move_start_coord.toString() == coord.toString()) {
+		if (key($move_start_coord) == key(coord)) {
 			$move_start_coord = null
 			possible_moves = null
 			return
 		}
 		const move = possible_moves?.find((move) => key(move.end) == key(coord))
 		if (!move) return
+
+		if (move.type === "promotion") {
+			during_promotion = true
+			promote = (type: Piece["type"]) => {
+				during_promotion = false
+				move.promotion_type = type
+				execute_move(move)
+			}
+		} else {
+			execute_move(move)
+		}
+	}
+
+	function execute_move(move: Move): void {
 		move_history.push(move)
-		board.apply_move(move)
+		board.apply_move(move) //  TODO: handle promotion case there
 		move.piece.moved = true
 		switch_player()
 	}
@@ -64,6 +80,7 @@
 		$move_start_coord = null
 		possible_moves = null
 		move_counter = 0
+		during_promotion = false
 	}
 </script>
 
@@ -72,6 +89,8 @@
 	{board}
 	on:click={handle_board_click}
 	{possible_targets}
+	{during_promotion}
+	{promote}
 />
 <Status />
 <Menu on:restart={handle_restart} />

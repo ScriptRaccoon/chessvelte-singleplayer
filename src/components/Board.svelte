@@ -1,14 +1,18 @@
 <script lang="ts">
+	import Piece from "./Piece.svelte"
+	import Promotion from "./Promotion.svelte"
+	import Square from "./Square.svelte"
+
 	import type { Board } from "@/ts/Board"
 	import { COLS, ROWS, SIZE } from "@/ts/config"
-	import Square from "./Square.svelte"
-	import Piece from "./Piece.svelte"
 	import { has_coord } from "@/ts/utils"
 	import type { Coord } from "@/ts/types"
 
 	export let move_counter = 0
 	export let board: Board
 	export let possible_targets: Coord[] | null = null
+	export let during_promotion: boolean
+	export let promote: (_: Piece["type"]) => void
 
 	const SHOW_COORDS = import.meta.env.VITE_SHOW_COORDS === "1"
 </script>
@@ -35,6 +39,8 @@
 			{/if}
 		{/each}
 	{/key}
+
+	<Promotion open={during_promotion} {promote} />
 </div>
 
 <style>

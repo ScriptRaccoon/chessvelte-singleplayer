@@ -16,4 +16,5 @@ export type Move = {
 	end: Coord
 	piece: Piece
 	capture_at: Coord | null
+	promotion_type?: Piece["type"]
 }
