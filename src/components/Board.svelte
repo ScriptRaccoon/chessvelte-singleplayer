@@ -17,8 +17,8 @@
 	const SHOW_COORDS = import.meta.env.VITE_SHOW_COORDS === "1"
 </script>
 
-<div class="board">
-	<div class="squares" style:--size={SIZE}>
+<div class="board" style:--size={SIZE}>
+	<div class="squares">
 		{#each ROWS as row}
 			{#each COLS as col}
 				<Square
@@ -45,9 +45,11 @@
 
 <style>
 	.board {
+		--dim: min(95vmin, 45rem);
+		--unit: calc(var(--dim) / var(--size));
 		box-sizing: content-box;
-		width: 80vmin;
-		height: 80vmin;
+		width: var(--dim);
+		height: var(--dim);
 		margin-inline: auto;
 		border: 0.4rem solid var(--border-color);
 		position: relative;

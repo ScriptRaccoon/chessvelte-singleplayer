@@ -27,11 +27,14 @@
 		top: 0;
 		left: 0;
 		position: absolute;
-		width: 10vmin;
-		height: 10vmin;
+		width: var(--unit);
+		height: var(--unit);
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		transform: translate(calc(var(--x) * 10vmin), calc(var(--y) * 10vmin));
+		transform: translate(
+			calc(var(--x) * var(--unit)),
+			calc(var(--y) * var(--unit))
+		);
 	}
 </style>

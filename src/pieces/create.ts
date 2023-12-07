@@ -20,5 +20,6 @@ export function create_piece(
 	type: Piece["type"],
 	color: Color
 ): Bishop | King | Knight | Pawn | Queen | Rook {
-	return constructor_map[type](color)
+	// @ts-ignore
+	return new constructor_map[type](color)
 }
