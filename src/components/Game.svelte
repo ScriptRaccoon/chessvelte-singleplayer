@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Coord, Move, Piece } from "@/utils/types"
-	import { moves } from "@/pieces/moves"
+	import { get_moves } from "@/pieces/moves"
 	import { move_start_coord, current_color } from "@/utils/stores"
 	import { key } from "@/utils/coordinates"
 	import { MoveHistory } from "@/controllers/MoveHistory"
@@ -34,7 +34,7 @@
 		const ok = piece?.color === $current_color
 		if (ok) {
 			$move_start_coord = coord
-			possible_moves = moves(piece, coord, board, move_history)
+			possible_moves = get_moves(piece, coord, board, move_history)
 		}
 	}
 
