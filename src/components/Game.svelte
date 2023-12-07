@@ -8,8 +8,9 @@
 
 	import Turn from "./Turn.svelte"
 	import Menu from "./Menu.svelte"
-	import Popup from "./Popup.svelte"
+	import Alert from "./Alert.svelte"
 	import { default as BoardComponent } from "./Board.svelte"
+	import Promotion from "./Promotion.svelte"
 
 	const board = new BoardController()
 	const move_history = new MoveHistory()
@@ -19,7 +20,7 @@
 	let during_promotion: boolean = false
 	let game_status: Game_Status = "playing"
 	let promote: (_: Piece["type"]) => void
-	let popup_message: string | null = null
+	let alert_message: string | null = null
 
 	$: possible_targets = possible_moves?.map((move) => move.end) ?? null
 
@@ -75,9 +76,9 @@
 		game_status = board.get_status($current_color, move_history)
 		setTimeout(() => {
 			if (game_status === "checkmate") {
-				popup_message = `Checkmate against ${$current_color}!`
+				alert_message = `Checkmate against ${$current_color}!`
 			} else if (game_status === "stalemate") {
-				popup_message = "Stalemate! It's a draw."
+				alert_message = "Stalemate! It's a draw."
 			}
 		}, 250)
 	}
@@ -97,7 +98,7 @@
 		move_counter = 0
 		during_promotion = false
 		game_status = "playing"
-		popup_message = null
+		alert_message = null
 	}
 </script>
 
@@ -106,9 +107,11 @@
 	{board}
 	on:click={handle_board_click}
 	{possible_targets}
-	{during_promotion}
-	{promote}
 />
+
 <Turn />
+
 <Menu on:restart={handle_restart} />
-<Popup bind:popup_message />
+
+<Promotion {during_promotion} {promote} />
+<Alert bind:alert_message />

@@ -1,22 +1,19 @@
 <script lang="ts">
 	import { current_color } from "@/utils/stores"
-	import Piece from "./Piece.svelte"
 	import { PROMOTION_PIECE_TYPES } from "@/utils/config"
 
-	export let promote: (_: Piece["type"]) => void
+	import Piece from "./Piece.svelte"
+	import Dialog from "./Dialog.svelte"
 
-	export let open: boolean
+	export let promote: (_: Piece["type"]) => void
+	export let during_promotion: boolean = false
 
 	function choose(type: Piece["type"]) {
 		promote(type)
 	}
 </script>
 
-{#if open}
-	<div class="overlay"></div>
-{/if}
-
-<dialog {open}>
+<Dialog open={during_promotion} with_close_button={false}>
 	<div class="choices">
 		{#each PROMOTION_PIECE_TYPES as type}
 			{@const src = new URL(
@@ -28,13 +25,9 @@
 			</button>
 		{/each}
 	</div>
-</dialog>
+</Dialog>
 
 <style>
-	dialog {
-		width: min(25rem, 95vw);
-	}
-
 	.choices {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
