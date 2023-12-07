@@ -19,3 +19,5 @@ export type Move = {
 export interface copyable<T> {
 	copy: () => T
 }
+
+export type Game_Status = "playing" | "check" | "checkmate" | "stalemate"

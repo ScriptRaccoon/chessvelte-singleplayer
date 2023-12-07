@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { Coord, Move } from "@/utils/types"
+	import type { Coord, Game_Status, Move } from "@/utils/types"
 	import { move_start_coord, current_color } from "@/utils/stores"
 	import { key } from "@/utils/coordinates"
 	import { MoveHistory } from "@/controllers/MoveHistory"
 	import { Board as BoardController } from "@/controllers/Board"
 	import type { Piece } from "@/controllers/Piece"
 
-	import Status from "./Status.svelte"
+	import Turn from "./Turn.svelte"
 	import Menu from "./Menu.svelte"
 	import { default as BoardComponent } from "./Board.svelte"
 
@@ -16,11 +16,13 @@
 	let possible_moves: Move[] | null = null
 	let move_counter = 0
 	let during_promotion: boolean = false
+	let game_status: Game_Status = "playing"
 	let promote: (_: Piece["type"]) => void
 
 	$: possible_targets = possible_moves?.map((move) => move.end) ?? null
 
 	function handle_board_click(event: CustomEvent<Coord>): void {
+		if (game_status === "checkmate" || game_status === "stalemate") return
 		const coord = event.detail
 		if ($move_start_coord) {
 			generate_move(coord)
@@ -64,6 +66,18 @@
 		board.apply_move(move)
 		move.piece.moved = true
 		switch_player()
+		update_status()
+	}
+
+	async function update_status() {
+		game_status = board.get_status($current_color, move_history)
+		setTimeout(() => {
+			if (game_status === "checkmate") {
+				window.alert(`Checkmate against ${$current_color}!`)
+			} else if (game_status === "stalemate") {
+				window.alert("Stalemate! It's a draw.")
+			}
+		}, 250)
 	}
 
 	function switch_player(): void {
@@ -80,6 +94,7 @@
 		possible_moves = null
 		move_counter = 0
 		during_promotion = false
+		game_status = "playing"
 	}
 </script>
 
@@ -91,5 +106,5 @@
 	{during_promotion}
 	{promote}
 />
-<Status />
+<Turn />
 <Menu on:restart={handle_restart} />
