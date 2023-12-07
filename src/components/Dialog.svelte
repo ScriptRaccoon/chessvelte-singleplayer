@@ -4,6 +4,7 @@
 
 	export let open: boolean = false
 	export let with_close_button: boolean = true
+	export let w: string = "20rem"
 
 	const dispatch = createEventDispatcher()
 </script>
@@ -12,7 +13,7 @@
 	<div class="overlay" transition:fade={{ duration: 100 }} />
 {/if}
 
-<dialog {open}>
+<dialog {open} style:--w={w}>
 	<slot />
 	{#if with_close_button}
 		<menu>
@@ -25,7 +26,7 @@
 
 <style>
 	dialog {
-		width: min(20rem, 95vw);
+		width: min(var(--w), 95vw);
 		z-index: 20;
 		position: absolute;
 		left: 50%;

@@ -8,7 +8,7 @@
 	const dispatch = createEventDispatcher()
 </script>
 
-<Dialog open={true} with_close_button={false}>
+<Dialog open={true} with_close_button={false} w="25rem">
 	<div class="choices">
 		{#each PROMOTION_PIECE_TYPES as type}
 			{@const src = new URL(
@@ -26,8 +26,6 @@
 	.choices {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		justify-content: center;
-		padding: 0.25rem;
 	}
 
 	img {
