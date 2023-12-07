@@ -40,11 +40,10 @@
 
 <style>
 	.board {
-		--dim: min(95vmin, 45rem);
-		--unit: calc(var(--dim) / var(--size));
+		--unit: calc(var(--width) / var(--size));
 		box-sizing: content-box;
-		width: var(--dim);
-		height: var(--dim);
+		width: var(--width);
+		height: var(--width);
 		margin-inline: auto;
 		border: 0.4rem solid var(--border-color);
 		position: relative;

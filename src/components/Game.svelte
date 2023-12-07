@@ -6,7 +6,6 @@
 	import { Board as BoardController } from "@/controllers/Board"
 	import type { Piece } from "@/controllers/Piece"
 
-	import Turn from "./Turn.svelte"
 	import Menu from "./Menu.svelte"
 	import Alert from "./Alert.svelte"
 	import { default as BoardComponent } from "./Board.svelte"
@@ -108,8 +107,6 @@
 	on:click={handle_board_click}
 	{possible_targets}
 />
-
-<Turn />
 
 <Menu on:restart={handle_restart} />
 
