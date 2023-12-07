@@ -46,11 +46,13 @@ export class Board {
 		if (move.capture_at) this.remove(move.capture_at)
 		this.remove(move.start)
 		if (move.type === "promotion") {
-			const new_piece = create_piece(
-				move.promotion_type!,
-				move.piece.color
-			)
-			this.set(move.end, new_piece)
+			if (move.promotion_type) {
+				const new_piece = create_piece(
+					move.promotion_type,
+					move.piece.color
+				)
+				this.set(move.end, new_piece)
+			}
 		} else if (move.type === "castle") {
 			this.set(move.end, move.piece)
 			if (move.associated_move) this.apply_move(move.associated_move)

@@ -32,10 +32,9 @@
 	function start_move(coord: Coord): void {
 		const piece = board.get(coord)
 		const ok = piece?.color === $current_color
-		if (ok) {
-			$move_start_coord = coord
-			possible_moves = piece.get_save_moves(coord, board, move_history)
-		}
+		if (!ok) return
+		$move_start_coord = coord
+		possible_moves = piece.get_save_moves(coord, board, move_history)
 	}
 
 	function generate_move(coord: Coord): void {
