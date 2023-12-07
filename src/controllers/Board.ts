@@ -61,7 +61,10 @@ export class Board {
 		}
 	}
 
-	public is_check(color: Color): boolean {
+	public is_check(
+		color: Color,
+		options: { check_other_king: boolean } = { check_other_king: true }
+	): boolean {
 		const king_coord = this.coords.find((coord) => {
 			const king = this.get(coord)
 			return king && king.type === "king" && king.color === color
@@ -70,6 +73,7 @@ export class Board {
 		for (const coord of this.coords) {
 			const piece = this.get(coord)
 			if (!piece) continue
+			if (piece.type === "king" && !options.check_other_king) continue
 			const moves = piece.get_moves(coord, this, null)
 			for (const move of moves) {
 				const is_attacking =

@@ -66,6 +66,7 @@ export class King extends Piece {
 
 	castle_moves(coord: Coord, board: Board): Move[] {
 		if (this.moved) return []
+		if (board.is_check(this.color, { check_other_king: false })) return []
 
 		const [row, col] = coord
 		const moves: Move[] = []
@@ -76,11 +77,18 @@ export class King extends Piece {
 			const range = inner_range(rook_col, col)
 			if (range.some((_col) => board.has([row, _col]))) continue
 
-			// TODO: check for king attacks here
+			const jump_coord: Coord = [row, rook_col == 0 ? col - 1 : col + 1]
+			const copy = board.copy()
+			copy.remove(coord)
+			copy.set(jump_coord, this)
+			const jump_via_check = copy.is_check(this.color, {
+				check_other_king: false,
+			})
+			if (jump_via_check) continue
 
 			const rook_move: Move = {
 				start: [row, rook_col],
-				end: [row, rook_col == 0 ? col - 1 : col + 1],
+				end: jump_coord,
 				piece: rook,
 				type: "regular",
 			}
