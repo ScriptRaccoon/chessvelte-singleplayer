@@ -3,10 +3,10 @@
 	import Promotion from "./Promotion.svelte"
 	import Square from "./Square.svelte"
 
-	import type { Board } from "@/ts/Board"
-	import { COLS, ROWS, SIZE } from "@/ts/config"
-	import { has_coord } from "@/ts/utils"
-	import type { Coord } from "@/ts/types"
+	import type { Board } from "@/controllers/Board"
+	import { COLS, ROWS, SIZE } from "@/utils/config"
+	import { has_coord } from "@/utils/coordinates"
+	import type { Coord } from "@/utils/types"
 
 	export let move_counter = 0
 	export let board: Board

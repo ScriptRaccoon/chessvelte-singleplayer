@@ -1,4 +1,4 @@
-import type { Piece, Coord_Key } from "./types"
+import type { Piece, Coord_Key } from "@/utils/types"
 
 const black_pieces: Record<Coord_Key, Piece> = {
 	"00": {

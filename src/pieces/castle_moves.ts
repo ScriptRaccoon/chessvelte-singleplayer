@@ -1,7 +1,7 @@
-import type { Board } from "../Board"
-import type { Coord, Move, Piece } from "../types"
-import { COLS } from "../config"
-import { inner_range } from "../utils"
+import type { Board } from "@/controllers/Board"
+import type { Coord, Move, Piece } from "@/utils/types"
+import { COLS } from "@/utils/config"
+import { inner_range } from "@/utils/utils"
 
 export function castle_moves(king: Piece, coord: Coord, board: Board): Move[] {
 	if (king.moved) return []

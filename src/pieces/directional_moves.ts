@@ -1,7 +1,7 @@
-import type { Board } from "../Board"
-import type { Coord, Move, Piece } from "../types"
-import { SIZE } from "../config"
-import { is_valid } from "../utils"
+import type { Board } from "@/controllers/Board"
+import type { Coord, Move, Piece } from "@/utils/types"
+import { SIZE } from "@/utils/config"
+import { is_valid } from "@/utils/coordinates"
 
 export function directional_moves(directions: [number, number][]) {
 	return (piece: Piece, coord: Coord, board: Board): Move[] => {

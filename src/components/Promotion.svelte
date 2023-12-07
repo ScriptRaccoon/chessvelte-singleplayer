@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { current_color } from "@/ts/stores"
-	import type { Piece } from "@/ts/types"
+	import { current_color } from "@/utils/stores"
+	import type { Piece } from "@/utils/types"
 
 	export let promote: (_: Piece["type"]) => void
 

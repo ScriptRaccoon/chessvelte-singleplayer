@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { Coord, Move, Piece } from "@/ts/types"
-	import { moves } from "@/ts/moves/moves"
-	import { move_start_coord, current_color } from "@/ts/stores"
-	import { key } from "@/ts/utils"
-	import { MoveHistory } from "@/ts/MoveHistory"
-	import { Board as BoardLogic } from "@/ts/Board"
+	import type { Coord, Move, Piece } from "@/utils/types"
+	import { moves } from "@/pieces/moves"
+	import { move_start_coord, current_color } from "@/utils/stores"
+	import { key } from "@/utils/coordinates"
+	import { MoveHistory } from "@/controllers/MoveHistory"
+	import { Board as BoardController } from "@/controllers/Board"
 
 	import Status from "./Status.svelte"
 	import Menu from "./Menu.svelte"
 	import { default as BoardComponent } from "./Board.svelte"
 
-	const board = new BoardLogic()
+	const board = new BoardController()
 	const move_history = new MoveHistory()
 
 	let possible_moves: Move[] | null = null

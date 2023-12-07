@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte"
-	import { move_start_coord } from "@/ts/stores"
-	import type { Coord } from "@/ts/types"
+	import { move_start_coord } from "@/utils/stores"
+	import type { Coord } from "@/utils/types"
 
 	export let coord: Coord
 	export let light: boolean

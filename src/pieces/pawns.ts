@@ -1,8 +1,8 @@
-import type { Piece, Coord, Move } from "../types"
-import type { Board } from "../Board"
-import type { MoveHistory } from "../MoveHistory"
-import { DIRECTION, ROWS } from "../config"
-import { is_valid } from "../utils"
+import type { Piece, Coord, Move } from "@/utils/types"
+import type { Board } from "@/controllers/Board"
+import type { MoveHistory } from "@/controllers/MoveHistory"
+import { DIRECTION, ROWS } from "@/utils/config"
+import { is_valid } from "@/utils/coordinates"
 
 export function pawn_moves(
 	pawn: Piece,

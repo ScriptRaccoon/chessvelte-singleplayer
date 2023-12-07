@@ -1,6 +1,6 @@
-import type { Board } from "../Board"
-import type { MoveHistory } from "../MoveHistory"
-import { type Piece, type Coord, type Move } from "../types"
+import type { Board } from "@/controllers/Board"
+import type { MoveHistory } from "@/controllers/MoveHistory"
+import { type Piece, type Coord, type Move } from "@/utils/types"
 
 import { bishop_moves } from "./bishop"
 import { king_moves } from "./king"

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { current_color } from "@/ts/stores"
+	import { current_color } from "@/utils/stores"
 </script>
 
 <section aria-label="status">

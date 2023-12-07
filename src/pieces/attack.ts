@@ -1,6 +1,6 @@
-import type { Board } from "../Board"
-import type { Move } from "../types"
-import { key } from "../utils"
+import type { Board } from "@/controllers/Board"
+import type { Move } from "@/utils/types"
+import { key } from "@/utils/coordinates"
 import { moves } from "./moves"
 
 export function is_attacked(move: Move, board: Board): boolean {

@@ -1,6 +1,6 @@
-import type { Piece, Coord, Move } from "../types"
-import type { Board } from "../Board"
-import { is_valid } from "../utils"
+import type { Piece, Coord, Move } from "@/utils/types"
+import type { Board } from "@/controllers/Board"
+import { is_valid } from "@/utils/coordinates"
 import { is_attacked } from "./attack"
 import { castle_moves } from "./castle_moves"
 

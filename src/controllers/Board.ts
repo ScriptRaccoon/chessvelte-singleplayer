@@ -1,6 +1,7 @@
-import type { Coord, Piece, Coord_Key, Move } from "./types"
-import { initial_pieces } from "./initial_pieces"
-import { deep_copy, key, typed_keys, unkey } from "./utils"
+import type { Coord, Piece, Coord_Key, Move } from "@/utils/types"
+import { initial_pieces } from "@/pieces/initial_pieces"
+import { deep_copy, typed_keys } from "@/utils/utils"
+import { key, unkey } from "@/utils/coordinates"
 
 type Map = Record<Coord_Key, Piece | undefined>
 

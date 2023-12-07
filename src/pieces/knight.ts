@@ -1,6 +1,6 @@
-import type { Piece, Coord, Move } from "../types"
-import type { Board } from "../Board"
-import { is_valid } from "../utils"
+import type { Piece, Coord, Move } from "@/utils/types"
+import type { Board } from "@/controllers/Board"
+import { is_valid } from "@/utils/coordinates"
 
 export function knight_moves(piece: Piece, coord: Coord, board: Board): Move[] {
 	const [row, col] = coord
