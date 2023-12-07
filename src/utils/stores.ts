@@ -15,3 +15,5 @@ export const current_color = (() => {
 		},
 	}
 })()
+
+export const popup_message = writable<string | null>(null)
