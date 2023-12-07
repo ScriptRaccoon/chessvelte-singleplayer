@@ -5,21 +5,12 @@
 	export let coord: Coord
 	export let piece: Piece
 
-	const image_src = new URL(
-		`../assets/${piece.type}_${piece.color}.svg`,
-		import.meta.url
-	).href
+	const image_src = `sprite.svg#${piece.type}_${piece.color}`
 </script>
 
-<div>
-	<img
-		class="piece"
-		style:--x={coord[1]}
-		style:--y={coord[0]}
-		src={image_src}
-		alt="{piece.type} {piece.color}"
-	/>
-</div>
+<svg class="piece" style:--x={coord[1]} style:--y={coord[0]}>
+	<use xlink:href={image_src} />
+</svg>
 
 <style>
 	.piece {
