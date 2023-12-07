@@ -45,7 +45,44 @@ const white_pieces: Record<Coord_Key, Piece> = {
 	"67": new Pawn("white"),
 }
 
+// STANDARD CONFIGURATION
 export const initial_pieces: Record<Coord_Key, Piece> = {
 	...black_pieces,
 	...white_pieces,
 }
+
+// TESTING CONFIGURATIONS
+
+// ENDING
+// export const initial_pieces: Record<Coord_Key, Piece> = {
+// 	"00": new King("black"),
+// 	"34": new Knight("white"),
+// 	"21": new King("white"),
+// 	"45": new Rook("white"),
+// }
+
+// CASTLING
+// export const initial_pieces: Record<Coord_Key, Piece> = {
+// 	"44": new King("black"),
+// 	"74": new King("white"),
+// 	"70": new Rook("white"),
+// 	"77": new Rook("white"),
+// 	"00": new Rook("black"),
+// 	"07": new Rook("black"),
+// }
+
+// PROMOTION
+// export const initial_pieces: Record<Coord_Key, Piece> = {
+// 	"44": new King("black"),
+// 	"77": new King("white"),
+// 	"12": new Pawn("white"),
+// 	"64": new Pawn("black"),
+// }
+
+// EN PASSANT
+// export const initial_pieces: Record<Coord_Key, Piece> = {
+// 	"00": new King("black", true),
+// 	"02": new King("white", true),
+// 	"45": new Pawn("black", true),
+// 	"66": new Pawn("white", false),
+// }
