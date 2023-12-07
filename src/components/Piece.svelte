@@ -1,5 +1,7 @@
 <script lang="ts">
-	import type { Piece, Coord } from "@/utils/types"
+	import type { Piece } from "@/controllers/Piece"
+	import type { Coord } from "@/utils/types"
+
 	export let coord: Coord
 	export let piece: Piece
 

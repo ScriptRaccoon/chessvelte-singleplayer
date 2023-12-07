@@ -1,23 +1,23 @@
 import type { Color, Coord, Move } from "@/utils/types"
+import { Piece } from "../controllers/Piece"
 import type { Board } from "@/controllers/Board"
-import { Piece } from "@/controllers/Piece"
 
-export class Bishop extends Piece {
+export class Rook extends Piece {
 	constructor(color: Color, moved: boolean = false) {
-		super("bishop", color, moved)
+		super("rook", color, moved)
 	}
 
-	copy(): Bishop {
-		return new Bishop(this.color, this.moved)
+	copy(): Rook {
+		return new Rook(this.color, this.moved)
 	}
 
 	get_moves(coord: Coord, board: Board): Move[] {
 		return this.directional_moves(
 			[
-				[+1, +1],
-				[+1, -1],
-				[-1, +1],
-				[-1, -1],
+				[+1, 0],
+				[-1, 0],
+				[0, +1],
+				[0, -1],
 			],
 			coord,
 			board

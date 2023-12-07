@@ -1,15 +1,16 @@
-import type { Coord, Piece, Coord_Key, Move, Color } from "@/utils/types"
+import type { Coord, Coord_Key, Move, Color } from "@/utils/types"
 import { initial_pieces } from "@/pieces/initial_pieces"
 import { deep_copy, typed_keys } from "@/utils/utils"
 import { key, unkey } from "@/utils/coordinates"
-import { get_unsave_moves } from "@/pieces/moves"
+import { Piece } from "./Piece"
+import { create_piece } from "@/pieces/create"
 
 type Map = Record<Coord_Key, Piece | undefined>
 
 export class Board {
 	private map: Map
 
-	constructor(map: Map | undefined = undefined) {
+	constructor(map: Map | null = null) {
 		this.map = map ?? deep_copy(initial_pieces)
 	}
 
@@ -45,11 +46,10 @@ export class Board {
 		if (move.capture_at) this.remove(move.capture_at)
 		this.remove(move.start)
 		if (move.type === "promotion") {
-			const new_piece: Piece = {
-				type: move.promotion_type!,
-				color: move.piece.color,
-				moved: false,
-			}
+			const new_piece = create_piece(
+				move.promotion_type!,
+				move.piece.color
+			)
 			this.set(move.end, new_piece)
 		} else if (move.type === "castle") {
 			this.set(move.end, move.piece)
@@ -68,7 +68,7 @@ export class Board {
 		for (const coord of this.coords) {
 			const piece = this.get(coord)
 			if (!piece) continue
-			const moves = get_unsave_moves(piece, coord, this, null)
+			const moves = piece.get_moves(coord, this, null)
 			for (const move of moves) {
 				const is_attacking =
 					move.type === "regular" && key(move.end) === key(king_coord)

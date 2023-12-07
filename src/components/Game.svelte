@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Coord, Move, Piece } from "@/utils/types"
-	import { get_moves } from "@/pieces/moves"
+	import type { Coord, Move } from "@/utils/types"
 	import { move_start_coord, current_color } from "@/utils/stores"
 	import { key } from "@/utils/coordinates"
 	import { MoveHistory } from "@/controllers/MoveHistory"
 	import { Board as BoardController } from "@/controllers/Board"
+	import type { Piece } from "@/controllers/Piece"
 
 	import Status from "./Status.svelte"
 	import Menu from "./Menu.svelte"
@@ -34,7 +34,7 @@
 		const ok = piece?.color === $current_color
 		if (ok) {
 			$move_start_coord = coord
-			possible_moves = get_moves(piece, coord, board, move_history)
+			possible_moves = piece.get_save_moves(coord, board, move_history)
 		}
 	}
 

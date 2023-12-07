@@ -1,5 +1,14 @@
-export function deep_copy<T>(obj: T): T {
-	return JSON.parse(JSON.stringify(obj))
+import type { copyable } from "./types"
+
+export function deep_copy<S extends string | number, T extends copyable<T>>(
+	obj: Record<S, T | undefined>
+): Record<S, T | undefined> {
+	const keys = typed_keys(obj)
+	const copy = {} as Record<S, T | undefined>
+	for (const key of keys) {
+		copy[key] = obj[key] ? obj[key]?.copy() : undefined
+	}
+	return copy
 }
 
 export function typed_keys<T extends {}>(obj: T): (keyof T)[] {

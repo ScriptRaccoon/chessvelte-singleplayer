@@ -1,168 +1,48 @@
-import type { Piece, Coord_Key } from "@/utils/types"
+import type { Coord_Key } from "@/utils/types"
+import { Piece } from "@/controllers/Piece"
+import { Bishop } from "@/pieces/Bishop"
+import { King } from "@/pieces/King"
+import { Knight } from "@/pieces/Knight"
+import { Pawn } from "@/pieces/Pawn"
+import { Queen } from "@/pieces/Queen"
+import { Rook } from "@/pieces/Rook"
 
 const black_pieces: Record<Coord_Key, Piece> = {
-	"00": {
-		type: "rook",
-		color: "black",
-		moved: false,
-	},
-	"07": {
-		type: "rook",
-		color: "black",
-		moved: false,
-	},
-	"01": {
-		type: "knight",
-		color: "black",
-		moved: false,
-	},
-	"06": {
-		type: "knight",
-		color: "black",
-		moved: false,
-	},
-	"02": {
-		type: "bishop",
-		color: "black",
-		moved: false,
-	},
-	"05": {
-		type: "bishop",
-		color: "black",
-		moved: false,
-	},
-	"03": {
-		type: "queen",
-		color: "black",
-		moved: false,
-	},
-	"04": {
-		type: "king",
-		color: "black",
-		moved: false,
-	},
-	"10": {
-		type: "pawn",
-		color: "black",
-		moved: false,
-	},
-	"11": {
-		type: "pawn",
-		color: "black",
-		moved: false,
-	},
-	"12": {
-		type: "pawn",
-		color: "black",
-		moved: false,
-	},
-	"13": {
-		type: "pawn",
-		color: "black",
-		moved: false,
-	},
-	"14": {
-		type: "pawn",
-		color: "black",
-		moved: false,
-	},
-	"15": {
-		type: "pawn",
-		color: "black",
-		moved: false,
-	},
-	"16": {
-		type: "pawn",
-		color: "black",
-		moved: false,
-	},
-	"17": {
-		type: "pawn",
-		color: "black",
-		moved: false,
-	},
+	"00": new Rook("black"),
+	"07": new Rook("black"),
+	"01": new Knight("black"),
+	"06": new Knight("black"),
+	"02": new Bishop("black"),
+	"05": new Bishop("black"),
+	"03": new Queen("black"),
+	"04": new King("black"),
+	"10": new Pawn("black"),
+	"11": new Pawn("black"),
+	"12": new Pawn("black"),
+	"13": new Pawn("black"),
+	"14": new Pawn("black"),
+	"15": new Pawn("black"),
+	"16": new Pawn("black"),
+	"17": new Pawn("black"),
 }
+
 const white_pieces: Record<Coord_Key, Piece> = {
-	"70": {
-		type: "rook",
-		color: "white",
-		moved: false,
-	},
-	"77": {
-		type: "rook",
-		color: "white",
-		moved: false,
-	},
-	"71": {
-		type: "knight",
-		color: "white",
-		moved: false,
-	},
-	"76": {
-		type: "knight",
-		color: "white",
-		moved: false,
-	},
-	"72": {
-		type: "bishop",
-		color: "white",
-		moved: false,
-	},
-	"75": {
-		type: "bishop",
-		color: "white",
-		moved: false,
-	},
-	"73": {
-		type: "queen",
-		color: "white",
-		moved: false,
-	},
-	"74": {
-		type: "king",
-		color: "white",
-		moved: false,
-	},
-	"60": {
-		type: "pawn",
-		color: "white",
-		moved: false,
-	},
-	"61": {
-		type: "pawn",
-		color: "white",
-		moved: false,
-	},
-	"62": {
-		type: "pawn",
-		color: "white",
-		moved: false,
-	},
-	"63": {
-		type: "pawn",
-		color: "white",
-		moved: false,
-	},
-	"64": {
-		type: "pawn",
-		color: "white",
-		moved: false,
-	},
-	"65": {
-		type: "pawn",
-		color: "white",
-		moved: false,
-	},
-	"66": {
-		type: "pawn",
-		color: "white",
-		moved: false,
-	},
-	"67": {
-		type: "pawn",
-		color: "white",
-		moved: false,
-	},
+	"70": new Rook("white"),
+	"77": new Rook("white"),
+	"71": new Knight("white"),
+	"76": new Knight("white"),
+	"72": new Bishop("white"),
+	"75": new Bishop("white"),
+	"73": new Queen("white"),
+	"74": new King("white"),
+	"60": new Pawn("white"),
+	"61": new Pawn("white"),
+	"62": new Pawn("white"),
+	"63": new Pawn("white"),
+	"64": new Pawn("white"),
+	"65": new Pawn("white"),
+	"66": new Pawn("white"),
+	"67": new Pawn("white"),
 }
 
 export const initial_pieces: Record<Coord_Key, Piece> = {
