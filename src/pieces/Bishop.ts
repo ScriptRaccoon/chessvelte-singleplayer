@@ -3,12 +3,12 @@ import type { Board } from "@/controllers/Board"
 import { Piece } from "@/controllers/Piece"
 
 export class Bishop extends Piece {
-	constructor(color: Color, moved: boolean = false) {
-		super("bishop", color, moved)
+	constructor(color: Color) {
+		super("bishop", color)
 	}
 
 	copy(): Bishop {
-		return new Bishop(this.color, this.moved)
+		return new Bishop(this.color)
 	}
 
 	get_moves(coord: Coord, board: Board): Move[] {

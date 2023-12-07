@@ -4,12 +4,12 @@ import { is_valid } from "@/utils/coordinates"
 import { Piece } from "@/controllers/Piece"
 
 export class Knight extends Piece {
-	constructor(color: Color, moved: boolean = false) {
-		super("knight", color, moved)
+	constructor(color: Color) {
+		super("knight", color)
 	}
 
 	copy(): Knight {
-		return new Knight(this.color, this.moved)
+		return new Knight(this.color)
 	}
 
 	get_moves(coord: Coord, board: Board): Move[] {

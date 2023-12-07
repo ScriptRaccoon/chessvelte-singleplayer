@@ -67,7 +67,6 @@
 	function execute_move(move: Move): void {
 		move_history.push(move)
 		board.apply_move(move)
-		move.piece.moved = true
 		switch_player()
 		update_status()
 	}
@@ -93,6 +92,7 @@
 	function handle_restart(): void {
 		board.reset()
 		current_color.reset()
+		move_history.clear()
 		$move_start_coord = null
 		possible_moves = null
 		move_counter = 0

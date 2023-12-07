@@ -9,7 +9,6 @@ export abstract class Piece {
 	constructor(
 		public type: "pawn" | "rook" | "knight" | "bishop" | "queen" | "king",
 		public color: Color,
-		public moved: boolean = false,
 		public id: string = get_id()
 	) {}
 

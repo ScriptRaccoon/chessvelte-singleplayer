@@ -1,20 +1,25 @@
 import type { Color, Coord, Move } from "@/utils/types"
 import type { Board } from "@/controllers/Board"
+import type { MoveHistory } from "@/controllers/MoveHistory"
 import { Piece } from "@/controllers/Piece"
 import { is_valid } from "@/utils/coordinates"
 import { COLS } from "@/utils/config"
 import { inner_range } from "@/utils/utils"
 
 export class King extends Piece {
-	constructor(color: Color, moved: boolean = false) {
-		super("king", color, moved)
+	constructor(color: Color) {
+		super("king", color)
 	}
 
 	copy(): King {
-		return new King(this.color, this.moved)
+		return new King(this.color)
 	}
 
-	get_moves(coord: Coord, board: Board): Move[] {
+	get_moves(
+		coord: Coord,
+		board: Board,
+		move_history: MoveHistory | null
+	): Move[] {
 		const [row, col] = coord
 
 		const moves: Move[] = []
@@ -59,13 +64,17 @@ export class King extends Piece {
 			}
 		}
 
-		moves.push(...this.castle_moves(coord, board))
+		moves.push(...this.castle_moves(coord, board, move_history))
 
 		return moves
 	}
 
-	castle_moves(coord: Coord, board: Board): Move[] {
-		if (this.moved) return []
+	castle_moves(
+		coord: Coord,
+		board: Board,
+		move_history: MoveHistory | null
+	): Move[] {
+		if (move_history?.contains_piece(this)) return []
 		if (board.is_check(this.color, { check_other_king: false })) return []
 
 		const [row, col] = coord
@@ -73,7 +82,13 @@ export class King extends Piece {
 
 		for (const rook_col of [0, COLS.length - 1]) {
 			const rook = board.get([row, rook_col])
-			if (!rook || rook.moved || rook.type !== "rook") continue
+			if (
+				!rook ||
+				rook.type !== "rook" ||
+				move_history?.contains_piece(rook)
+			)
+				continue
+
 			const range = inner_range(rook_col, col)
 			if (range.some((_col) => board.has([row, _col]))) continue
 

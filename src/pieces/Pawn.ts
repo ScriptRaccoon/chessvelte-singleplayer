@@ -6,12 +6,12 @@ import { is_valid } from "@/utils/coordinates"
 import { Piece } from "@/controllers/Piece"
 
 export class Pawn extends Piece {
-	constructor(color: Color, moved: boolean = false) {
-		super("pawn", color, moved)
+	constructor(color: Color) {
+		super("pawn", color)
 	}
 
 	copy(): Pawn {
-		return new Pawn(this.color, this.moved)
+		return new Pawn(this.color)
 	}
 
 	get_moves(
@@ -24,7 +24,7 @@ export class Pawn extends Piece {
 		const direction: number = DIRECTION[this.color]
 		const in_front: Coord = [row + direction, col]
 		const in_front2: Coord = [row + 2 * direction, col]
-		const base_line = ROWS.at(direction === 1 ? -1 : 0)
+		const base_line: number = ROWS[direction === 1 ? ROWS.length - 1 : 0]
 
 		// move one step in front
 		if (is_valid(in_front) && !board.has(in_front)) {
@@ -36,7 +36,11 @@ export class Pawn extends Piece {
 			})
 
 			// move two steps in front
-			if (!this.moved && is_valid(in_front2) && !board.has(in_front2)) {
+			if (
+				!move_history?.contains_piece(this) &&
+				is_valid(in_front2) &&
+				!board.has(in_front2)
+			) {
 				moves.push({
 					start: coord,
 					end: in_front2,
