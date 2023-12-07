@@ -3,12 +3,14 @@ import type { Board } from "@/controllers/Board"
 import type { Color, Coord, Move } from "@/utils/types"
 import { SIZE } from "@/utils/config"
 import { is_valid } from "@/utils/coordinates"
+import { get_id } from "@/utils/utils"
 
 export abstract class Piece {
 	constructor(
 		public type: "pawn" | "rook" | "knight" | "bishop" | "queen" | "king",
 		public color: Color,
-		public moved: boolean = false
+		public moved: boolean = false,
+		public id: string = get_id()
 	) {}
 
 	abstract copy(): any

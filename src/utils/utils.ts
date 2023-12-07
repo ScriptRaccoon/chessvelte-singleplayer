@@ -1,4 +1,7 @@
+import { customAlphabet } from "nanoid"
 import type { copyable } from "./types"
+
+export const get_id = customAlphabet("1234567890abcdefghiklmnopqrstuvwxyz", 4)
 
 export function deep_copy<S extends string | number, T extends copyable<T>>(
 	obj: Record<S, T | undefined>
