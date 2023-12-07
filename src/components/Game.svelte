@@ -16,10 +16,9 @@
 
 	let possible_moves: Move[] | null = null
 	let move_counter = 0
-	let during_promotion: boolean = false
 	let game_status: Game_Status = "playing"
-	let promote: (_: Piece["type"]) => void
 	let alert_message: string | null = null
+	let promotion_move: Move | null = null
 
 	$: possible_targets = possible_moves?.map((move) => move.end) ?? null
 
@@ -52,15 +51,17 @@
 		if (!move) return
 
 		if (move.type === "promotion") {
-			during_promotion = true
-			promote = (type: Piece["type"]) => {
-				during_promotion = false
-				move.promotion_type = type
-				execute_move(move)
-			}
+			promotion_move = move
 		} else {
 			execute_move(move)
 		}
+	}
+
+	function finish_promotion(e: CustomEvent<Piece["type"]>) {
+		if (!promotion_move) return
+		promotion_move.promotion_type = e.detail
+		execute_move(promotion_move)
+		promotion_move = null
 	}
 
 	function execute_move(move: Move): void {
@@ -95,9 +96,9 @@
 		$move_start_coord = null
 		possible_moves = null
 		move_counter = 0
-		during_promotion = false
 		game_status = "playing"
 		alert_message = null
+		promotion_move = null
 	}
 </script>
 
@@ -110,5 +111,8 @@
 
 <Menu on:restart={handle_restart} />
 
-<Promotion {during_promotion} {promote} />
+{#if promotion_move != null}
+	<Promotion on:type={finish_promotion} />
+{/if}
+
 <Alert bind:alert_message />
