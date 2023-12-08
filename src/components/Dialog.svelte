@@ -3,7 +3,8 @@
 	import { fade } from "svelte/transition"
 
 	export let open: boolean = false
-	export let with_close_button: boolean = true
+	export let with_close_button: boolean = false
+	export let with_cancel_button: boolean = false
 	export let w: string = "20rem"
 
 	const dispatch = createEventDispatcher()
@@ -15,11 +16,18 @@
 
 <dialog {open} style:--w={w}>
 	<slot />
-	{#if with_close_button}
+	{#if with_close_button || with_cancel_button}
 		<menu>
-			<button class="button" on:click={() => dispatch("close")}>
-				Ok
-			</button>
+			{#if with_close_button}
+				<button class="button" on:click={() => dispatch("close")}>
+					Ok
+				</button>
+			{/if}
+			{#if with_cancel_button}
+				<button class="button" on:click={() => dispatch("cancel")}>
+					Cancel
+				</button>
+			{/if}
 		</menu>
 	{/if}
 </dialog>
@@ -49,6 +57,9 @@
 	}
 
 	menu {
+		display: flex;
+		justify-content: center;
+		gap: 0.5rem;
 		margin-top: 1rem;
 	}
 </style>

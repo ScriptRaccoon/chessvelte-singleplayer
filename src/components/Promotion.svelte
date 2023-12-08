@@ -10,7 +10,7 @@
 	const dispatch = createEventDispatcher()
 </script>
 
-<Dialog open={true} with_close_button={false} w="25rem">
+<Dialog open={true} with_cancel_button={true} w="25rem" on:cancel>
 	<div class="choices">
 		{#each PROMOTION_PIECE_TYPES as type}
 			{@const src = `sprite.svg#${type}_${color}`}

@@ -57,7 +57,11 @@
 <Menu on:restart={restart} color={game.current_color} />
 
 {#if game.promotion_move != null}
-	<Promotion on:type={finish_promotion} color={game.current_color} />
+	<Promotion
+		color={game.current_color}
+		on:type={finish_promotion}
+		on:cancel={game.cancel_promotion}
+	/>
 {/if}
 
 <Alert bind:alert_message />

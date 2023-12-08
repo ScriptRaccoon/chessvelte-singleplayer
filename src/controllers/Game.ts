@@ -18,6 +18,12 @@ export class Game {
 		return this.status === "checkmate" || this.status === "stalemate"
 	}
 
+	public cancel_promotion(): void {
+		this.promotion_move = null
+		this.move_start_coord = null
+		this.possible_moves = null
+	}
+
 	public select_coord(coord: Coord, callback: () => void): void {
 		if (this.has_ended) return
 		const piece = this.board.get(coord)
