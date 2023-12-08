@@ -25,31 +25,30 @@
 	function handle_board_click(event: CustomEvent<Coord>): void {
 		if (game_status === "checkmate" || game_status === "stalemate") return
 		const coord = event.detail
+		const piece = board.get(coord)
 		if ($move_start_coord) {
-			generate_move(coord)
-		} else {
-			start_move(coord)
+			if (key($move_start_coord) == key(coord)) {
+				$move_start_coord = null
+				possible_moves = null
+			} else if (piece?.color === $current_color) {
+				start_move(coord, piece)
+			} else {
+				generate_move(coord)
+			}
+		} else if (piece?.color === $current_color) {
+			start_move(coord, piece)
 		}
 	}
 
-	function start_move(coord: Coord): void {
-		const piece = board.get(coord)
-		const ok = piece?.color === $current_color
-		if (!ok) return
+	function start_move(coord: Coord, piece: Piece): void {
 		$move_start_coord = coord
 		possible_moves = piece.get_save_moves(coord, board, move_history)
 	}
 
 	function generate_move(coord: Coord): void {
 		if (!$move_start_coord) return
-		if (key($move_start_coord) == key(coord)) {
-			$move_start_coord = null
-			possible_moves = null
-			return
-		}
 		const move = possible_moves?.find((move) => key(move.end) == key(coord))
 		if (!move) return
-
 		if (move.type === "promotion") {
 			promotion_move = move
 		} else {
