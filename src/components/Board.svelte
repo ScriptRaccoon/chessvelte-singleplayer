@@ -2,14 +2,15 @@
 	import Piece from "./Piece.svelte"
 	import Square from "./Square.svelte"
 
-	import type { Board } from "@/controllers/Board"
+	import type { Board as BoardController } from "@/controllers/Board"
 	import { COLS, ROWS, SIZE } from "@/utils/config"
-	import { has_coord } from "@/utils/coordinates"
+	import { gen_coord, has_coord, key } from "@/utils/coordinates"
 	import type { Coord } from "@/utils/types"
 
 	export let move_counter = 0
-	export let board: Board
+	export let board: BoardController
 	export let possible_targets: Coord[] | null = null
+	export let move_start_coord: Coord | null = null
 
 	const SHOW_COORDS = import.meta.env.VITE_SHOW_COORDS === "1"
 </script>
@@ -18,11 +19,14 @@
 	<div class="squares">
 		{#each ROWS as row}
 			{#each COLS as col}
+				{@const coord = gen_coord(row, col)}
 				<Square
-					coord={[row, col]}
+					{coord}
 					light={(row + col) % 2 == 0}
-					highlighted={has_coord(possible_targets, [row, col])}
+					highlighted={has_coord(possible_targets, coord)}
 					{SHOW_COORDS}
+					selected={move_start_coord != null &&
+						key(coord) == key(move_start_coord)}
 					on:click
 				/>
 			{/each}

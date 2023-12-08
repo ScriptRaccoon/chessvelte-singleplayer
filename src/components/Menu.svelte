@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { current_color } from "@/utils/stores"
+	import type { Color } from "@/utils/types"
 	import { createEventDispatcher } from "svelte"
 	const dispatch = createEventDispatcher()
+
+	export let color: Color
 </script>
 
 <div class="wrapper">
-	<div aria-label="Turn: {$current_color}">
-		<div class="circle {$current_color}"></div>
+	<div aria-label="Turn: {color}">
+		<div class="circle {color}"></div>
 	</div>
 
 	<menu>

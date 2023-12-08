@@ -1,4 +1,4 @@
-import type { Coord, Coord_Key, Move, Color, Game_Status } from "@/utils/types"
+import type { Coord, Coord_Key, Move, Color } from "@/utils/types"
 import { initial_pieces } from "@/pieces/initial_pieces"
 import { deep_copy, typed_keys } from "@/utils/utils"
 import { key, unkey } from "@/utils/coordinates"
@@ -93,15 +93,5 @@ export class Board {
 			moves.push(...piece.get_save_moves(coord, this, move_history))
 		}
 		return moves
-	}
-
-	public get_status(color: Color, move_history: MoveHistory): Game_Status {
-		const moves = this.get_all_moves(color, move_history)
-		const checked = this.is_check(color)
-		if (moves.length === 0) {
-			return checked ? "checkmate" : "stalemate"
-		} else {
-			return checked ? "check" : "playing"
-		}
 	}
 }

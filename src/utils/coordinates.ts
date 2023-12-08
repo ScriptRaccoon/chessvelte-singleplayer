@@ -10,6 +10,10 @@ export function key(coord: Coord): Coord_Key {
 	return `${coord[0]}${coord[1]}`
 }
 
+export function gen_coord(row: number, col: number): Coord {
+	return [row, col]
+}
+
 export function unkey(key: Coord_Key): Coord {
 	return [Number(key[0]), Number(key[1])]
 }

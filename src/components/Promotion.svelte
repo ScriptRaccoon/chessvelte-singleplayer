@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte"
-	import { current_color } from "@/utils/stores"
 
 	import { PROMOTION_PIECE_TYPES } from "@/utils/config"
 	import Dialog from "./Dialog.svelte"
+	import type { Color } from "@/utils/types"
+
+	export let color: Color
 
 	const dispatch = createEventDispatcher()
 </script>
@@ -11,7 +13,7 @@
 <Dialog open={true} with_close_button={false} w="25rem">
 	<div class="choices">
 		{#each PROMOTION_PIECE_TYPES as type}
-			{@const src = `sprite.svg#${type}_${$current_color}`}
+			{@const src = `sprite.svg#${type}_${color}`}
 			<button on:click={() => dispatch("type", type)}>
 				<svg>
 					<use xlink:href={src} />

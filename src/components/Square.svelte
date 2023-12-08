@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte"
-	import { move_start_coord } from "@/utils/stores"
 	import type { Coord } from "@/utils/types"
 
 	export let coord: Coord
 	export let light: boolean
 	export let highlighted: boolean
 	export let SHOW_COORDS: boolean
+	export let selected: boolean = false
 
 	const dispatch = createEventDispatcher<{ click: Coord }>()
-
-	$: selected = coord == $move_start_coord
 </script>
 
 <button
