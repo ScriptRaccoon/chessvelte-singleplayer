@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { tick } from "svelte"
+
 	import type { Coord, Game_Status, Move } from "@/utils/types"
 	import { move_start_coord, current_color } from "@/utils/stores"
 	import { key } from "@/utils/coordinates"
@@ -8,8 +10,8 @@
 
 	import Menu from "./Menu.svelte"
 	import Alert from "./Alert.svelte"
-	import { default as BoardComponent } from "./Board.svelte"
 	import Promotion from "./Promotion.svelte"
+	import { default as BoardComponent } from "./Board.svelte"
 
 	const board = new BoardController()
 	const move_history = new MoveHistory()
@@ -72,13 +74,12 @@
 
 	async function update_status() {
 		game_status = board.get_status($current_color, move_history)
-		setTimeout(() => {
-			if (game_status === "checkmate") {
-				alert_message = `Checkmate against ${$current_color}!`
-			} else if (game_status === "stalemate") {
-				alert_message = "Stalemate! It's a draw."
-			}
-		}, 250)
+		await tick()
+		if (game_status === "checkmate") {
+			alert_message = `Checkmate against ${$current_color}!`
+		} else if (game_status === "stalemate") {
+			alert_message = "Stalemate! It's a draw."
+		}
 	}
 
 	function switch_player(): void {

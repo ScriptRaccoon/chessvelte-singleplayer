@@ -11,12 +11,11 @@
 <Dialog open={true} with_close_button={false} w="25rem">
 	<div class="choices">
 		{#each PROMOTION_PIECE_TYPES as type}
-			{@const src = new URL(
-				`../assets/${type}_${$current_color}.svg`,
-				import.meta.url
-			).href}
+			{@const src = `sprite.svg#${type}_${$current_color}`}
 			<button on:click={() => dispatch("type", type)}>
-				<img {src} alt={type} />
+				<svg>
+					<use xlink:href={src} />
+				</svg>
 			</button>
 		{/each}
 	</div>
@@ -28,7 +27,11 @@
 		grid-template-columns: repeat(4, 1fr);
 	}
 
-	img {
+	button {
+		aspect-ratio: 1;
+	}
+
+	svg {
 		width: 100%;
 		height: 100%;
 	}
