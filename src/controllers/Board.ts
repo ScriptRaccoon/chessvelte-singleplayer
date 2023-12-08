@@ -68,7 +68,7 @@ export class Board {
 	): boolean {
 		const king_coord = this.coords.find((coord) => {
 			const king = this.get(coord)
-			return king && king.type === "king" && king.color === color
+			return king?.type === "king" && king.color === color
 		})
 		if (!king_coord) return false
 		for (const coord of this.coords) {
@@ -77,8 +77,7 @@ export class Board {
 			if (piece.type === "king" && !options.check_other_king) continue
 			const moves = piece.get_moves(coord, this, null)
 			for (const move of moves) {
-				const is_attacking =
-					move.type === "regular" && key(move.end) === key(king_coord)
+				const is_attacking = key(move.end) === key(king_coord)
 				if (is_attacking) return true
 			}
 		}

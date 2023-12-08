@@ -86,3 +86,9 @@ export const initial_pieces: Record<Coord_Key, Piece> = {
 // 	"45": new Pawn("black", true),
 // 	"66": new Pawn("white", false),
 // }
+
+// LONELY KINGS
+// export const initial_pieces: Record<Coord_Key, Piece> = {
+// 	"22": new King("white"),
+// 	"55": new King("black"),
+// }
