@@ -1,4 +1,4 @@
-import type { Color, Coord, Move } from "@/utils/types"
+import type { Callback, Color, Coord, Move } from "@/utils/types"
 import type { Piece } from "./Piece"
 import { MoveHistory } from "./MoveHistory"
 import { Board } from "./Board"
@@ -24,7 +24,7 @@ export class Game {
 		this.possible_moves = null
 	}
 
-	public select_coord(coord: Coord, callback: () => void): void {
+	public select_coord(coord: Coord, callback: Callback): void {
 		if (this.has_ended) return
 		const piece = this.board.get(coord)
 		if (this.move_start_coord) {
@@ -50,7 +50,7 @@ export class Game {
 		)
 	}
 
-	private generate_move(coord: Coord, callback: () => void): void {
+	private generate_move(coord: Coord, callback: Callback): void {
 		if (!this.move_start_coord) return
 		const move = this.possible_moves?.find(
 			(move) => key(move.end) == key(coord)
@@ -87,14 +87,14 @@ export class Game {
 		}
 	}
 
-	private finish_move(move: Move, callback: () => void): void {
+	private finish_move(move: Move, callback: Callback): void {
 		this.execute_move(move)
 		this.switch_color()
 		this.update_status()
 		callback()
 	}
 
-	public finish_promotion(type: Piece["type"], callback: () => void): void {
+	public finish_promotion(type: Piece["type"], callback: Callback): void {
 		if (!this.promotion_move) return
 		this.promotion_move.promotion_type = type
 		this.finish_move(this.promotion_move, callback)
