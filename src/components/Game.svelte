@@ -35,6 +35,7 @@
 	function finish_promotion(e: CustomEvent<Piece["type"]>) {
 		const type = e.detail
 		game.finish_promotion(type, finish_move)
+		game.rerender = true
 	}
 
 	function restart(): void {
