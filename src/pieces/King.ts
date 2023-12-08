@@ -18,7 +18,8 @@ export class King extends Piece {
 	get_moves(
 		coord: Coord,
 		board: Board,
-		move_history: MoveHistory | null
+		move_history: MoveHistory | null,
+		include_special_moves: boolean
 	): Move[] {
 		const [row, col] = coord
 
@@ -64,7 +65,9 @@ export class King extends Piece {
 			}
 		}
 
-		moves.push(...this.castle_moves(coord, board, move_history))
+		if (include_special_moves) {
+			moves.push(...this.castle_moves(coord, board, move_history))
+		}
 
 		return moves
 	}
@@ -75,7 +78,7 @@ export class King extends Piece {
 		move_history: MoveHistory | null
 	): Move[] {
 		if (move_history?.contains_piece(this)) return []
-		if (board.is_check(this.color, { check_other_king: false })) return []
+		if (board.is_check(this.color)) return []
 
 		const [row, col] = coord
 		const moves: Move[] = []
@@ -96,9 +99,7 @@ export class King extends Piece {
 			const copy = board.copy()
 			copy.remove(coord)
 			copy.set(jump_coord, this)
-			const jump_via_check = copy.is_check(this.color, {
-				check_other_king: false,
-			})
+			const jump_via_check = copy.is_check(this.color)
 			if (jump_via_check) continue
 
 			const rook_move: Move = {

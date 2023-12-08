@@ -1,5 +1,5 @@
 import type { Coord, Coord_Key, Move, Color } from "@/utils/types"
-import { initial_pieces } from "@/pieces/initial_pieces"
+import { INITIAL_CONFIG } from "@/pieces/pieces.config"
 import { deep_copy, typed_keys } from "@/utils/utils"
 import { key, unkey } from "@/utils/coordinates"
 import { Piece } from "./Piece"
@@ -12,7 +12,7 @@ export class Board {
 	private map: Map
 
 	constructor(map: Map | null = null) {
-		this.map = map ?? deep_copy(initial_pieces)
+		this.map = map ?? deep_copy(INITIAL_CONFIG)
 	}
 
 	public copy(): Board {
@@ -36,7 +36,7 @@ export class Board {
 	}
 
 	public reset(): void {
-		this.map = deep_copy(initial_pieces)
+		this.map = deep_copy(INITIAL_CONFIG)
 	}
 
 	public get coords(): Coord[] {
@@ -62,10 +62,7 @@ export class Board {
 		}
 	}
 
-	public is_check(
-		color: Color,
-		options: { check_other_king: boolean } = { check_other_king: true }
-	): boolean {
+	public is_check(color: Color): boolean {
 		const king_coord = this.coords.find((coord) => {
 			const king = this.get(coord)
 			return king?.type === "king" && king.color === color
@@ -73,9 +70,8 @@ export class Board {
 		if (!king_coord) return false
 		for (const coord of this.coords) {
 			const piece = this.get(coord)
-			if (!piece) continue
-			if (piece.type === "king" && !options.check_other_king) continue
-			const moves = piece.get_moves(coord, this, null)
+			if (!piece || piece.color === color) continue
+			const moves = piece.get_moves(coord, this, null, false)
 			for (const move of moves) {
 				const is_attacking = key(move.end) === key(king_coord)
 				if (is_attacking) return true

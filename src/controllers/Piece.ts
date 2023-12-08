@@ -17,7 +17,8 @@ export abstract class Piece {
 	abstract get_moves(
 		coord: Coord,
 		board: Board,
-		move_history: MoveHistory | null
+		move_history: MoveHistory | null,
+		include_special_moves: boolean
 	): Move[]
 
 	get_save_moves(
@@ -25,7 +26,7 @@ export abstract class Piece {
 		board: Board,
 		move_history: MoveHistory | null = null
 	): Move[] {
-		const moves = this.get_moves(coord, board, move_history)
+		const moves = this.get_moves(coord, board, move_history, true)
 		return moves.filter((move) => {
 			const copy = board.copy()
 			copy.apply_move(move)
