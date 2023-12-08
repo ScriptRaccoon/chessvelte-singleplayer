@@ -40,6 +40,7 @@
 
 	function restart(): void {
 		game.reset()
+		game.rerender = true
 		alert_message = null
 		move_counter = 0
 	}
