@@ -1,4 +1,4 @@
-import type { Callback, Color, Coord, Move } from "@/utils/types"
+import type { Callback, Color, Coord, Coord_Key, Move } from "@/utils/types"
 import type { Piece } from "./Piece"
 import { MoveHistory } from "./MoveHistory"
 import { Board } from "./Board"
@@ -10,7 +10,8 @@ export class Game {
 	public current_color: Color = "white"
 	public status: "playing" | "check" | "checkmate" | "stalemate" = "playing"
 	public rerender: boolean = true
-	private all_moves: Move[] = []
+	private all_moves: Record<Coord_Key, Move[]> = {}
+	private number_all_moves: number = 0
 	public possible_moves: Move[] = []
 	public move_start_coord: Coord | null = null
 	public promotion_move: Move | null = null
@@ -52,9 +53,7 @@ export class Game {
 
 	private start_move(coord: Coord): void {
 		this.move_start_coord = coord
-		this.possible_moves = this.all_moves.filter(
-			(move) => key(move.start) === key(coord)
-		)
+		this.possible_moves = this.all_moves[key(coord)]
 	}
 
 	private generate_move(coord: Coord, callback?: Callback): void {
@@ -83,7 +82,7 @@ export class Game {
 
 	private update_status(): void {
 		const checked = this.board.is_check(this.current_color)
-		if (this.all_moves.length === 0) {
+		if (this.number_all_moves === 0) {
 			this.status = checked ? "checkmate" : "stalemate"
 		} else {
 			this.status = checked ? "check" : "playing"
@@ -117,14 +116,20 @@ export class Game {
 	}
 
 	compute_all_moves(): void {
-		const moves: Move[] = []
+		let number_all_moves = 0
+		const all_moves: Record<Coord_Key, Move[]> = {}
 		for (const coord of this.board.coords) {
 			const piece = this.board.get(coord)
 			if (!piece || piece.color !== this.current_color) continue
-			moves.push(
-				...piece.get_save_moves(coord, this.board, this.move_history)
+			const moves = piece.get_save_moves(
+				coord,
+				this.board,
+				this.move_history
 			)
+			all_moves[key(coord)] = moves
+			number_all_moves += moves.length
 		}
-		this.all_moves = moves
+		this.all_moves = all_moves
+		this.number_all_moves = number_all_moves
 	}
 }
