@@ -13,6 +13,11 @@ export class Game {
 	public possible_moves: Move[] | null = null
 	public promotion_move: Move | null = null
 	public rerender: boolean = true
+	public all_moves: Move[] = []
+
+	constructor() {
+		this.compute_all_moves()
+	}
 
 	public get has_ended(): boolean {
 		return this.status === "checkmate" || this.status === "stalemate"
@@ -75,12 +80,9 @@ export class Game {
 	}
 
 	private update_status(): void {
-		const moves = this.board.get_all_moves(
-			this.current_color,
-			this.move_history
-		)
+		this.compute_all_moves()
 		const checked = this.board.is_check(this.current_color)
-		if (moves.length === 0) {
+		if (this.all_moves.length === 0) {
 			this.status = checked ? "checkmate" : "stalemate"
 		} else {
 			this.status = checked ? "check" : "playing"
@@ -109,5 +111,17 @@ export class Game {
 		this.promotion_move = null
 		this.move_history.clear()
 		this.board.reset()
+	}
+
+	compute_all_moves(): void {
+		const moves: Move[] = []
+		for (const coord of this.board.coords) {
+			const piece = this.board.get(coord)
+			if (!piece || piece.color !== this.current_color) continue
+			moves.push(
+				...piece.get_save_moves(coord, this.board, this.move_history)
+			)
+		}
+		this.all_moves = moves
 	}
 }

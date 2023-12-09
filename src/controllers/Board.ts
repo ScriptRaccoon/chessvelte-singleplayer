@@ -4,7 +4,6 @@ import { deep_copy, typed_keys } from "@/utils/utils"
 import { key, unkey } from "@/utils/coordinates"
 import { Piece } from "./Piece"
 import { create_piece } from "@/pieces/create"
-import type { MoveHistory } from "./MoveHistory"
 
 type Map = Record<Coord_Key, Piece | undefined>
 
@@ -78,15 +77,5 @@ export class Board {
 			}
 		}
 		return false
-	}
-
-	get_all_moves(color: Color, move_history: MoveHistory): Move[] {
-		const moves: Move[] = []
-		for (const coord of this.coords) {
-			const piece = this.get(coord)
-			if (!piece || piece.color !== color) continue
-			moves.push(...piece.get_save_moves(coord, this, move_history))
-		}
-		return moves
 	}
 }
