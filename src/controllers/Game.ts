@@ -29,7 +29,7 @@ export class Game {
 		this.possible_moves = []
 	}
 
-	public select_coord(coord: Coord, callback: Callback): void {
+	public select_coord(coord: Coord, callback?: Callback): void {
 		if (this.has_ended) return
 		const piece = this.board.get(coord)
 		if (this.move_start_coord) {
@@ -57,7 +57,7 @@ export class Game {
 		)
 	}
 
-	private generate_move(coord: Coord, callback: Callback): void {
+	private generate_move(coord: Coord, callback?: Callback): void {
 		if (!this.move_start_coord) return
 		const move = this.possible_moves?.find(
 			(move) => key(move.end) == key(coord)
@@ -90,12 +90,12 @@ export class Game {
 		}
 	}
 
-	private finish_move(move: Move, callback: Callback): void {
+	private finish_move(move: Move, callback?: Callback): void {
 		this.execute_move(move)
 		this.switch_color()
 		this.compute_all_moves()
 		this.update_status()
-		callback()
+		if (callback) callback()
 	}
 
 	public finish_promotion(type: Piece["type"], callback: Callback): void {
