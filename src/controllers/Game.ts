@@ -9,11 +9,11 @@ export class Game {
 	public board: Board = new Board()
 	public current_color: Color = "white"
 	public status: "playing" | "check" | "checkmate" | "stalemate" = "playing"
-	public move_start_coord: Coord | null = null
-	public possible_moves: Move[] | null = null
-	public promotion_move: Move | null = null
 	public rerender: boolean = true
 	public all_moves: Move[] = []
+	public possible_moves: Move[] = []
+	public move_start_coord: Coord | null = null
+	public promotion_move: Move | null = null
 
 	constructor() {
 		this.compute_all_moves()
@@ -26,7 +26,7 @@ export class Game {
 	public cancel_promotion(): void {
 		this.promotion_move = null
 		this.move_start_coord = null
-		this.possible_moves = null
+		this.possible_moves = []
 	}
 
 	public select_coord(coord: Coord, callback: Callback): void {
@@ -34,24 +34,26 @@ export class Game {
 		const piece = this.board.get(coord)
 		if (this.move_start_coord) {
 			if (key(this.move_start_coord) == key(coord)) {
-				this.move_start_coord = null
-				this.possible_moves = null
+				this.cancel_move()
 			} else if (piece?.color === this.current_color) {
-				this.start_move(coord, piece)
+				this.start_move(coord)
 			} else {
 				this.generate_move(coord, callback)
 			}
 		} else if (piece?.color === this.current_color) {
-			this.start_move(coord, piece)
+			this.start_move(coord)
 		}
 	}
 
-	private start_move(coord: Coord, piece: Piece): void {
+	private cancel_move(): void {
+		this.move_start_coord = null
+		this.possible_moves = []
+	}
+
+	private start_move(coord: Coord): void {
 		this.move_start_coord = coord
-		this.possible_moves = piece.get_save_moves(
-			coord,
-			this.board,
-			this.move_history
+		this.possible_moves = this.all_moves.filter(
+			(move) => key(move.start) === key(coord)
 		)
 	}
 
@@ -76,11 +78,10 @@ export class Game {
 	private switch_color(): void {
 		this.current_color = this.current_color === "white" ? "black" : "white"
 		this.move_start_coord = null
-		this.possible_moves = null
+		this.possible_moves = []
 	}
 
 	private update_status(): void {
-		this.compute_all_moves()
 		const checked = this.board.is_check(this.current_color)
 		if (this.all_moves.length === 0) {
 			this.status = checked ? "checkmate" : "stalemate"
@@ -92,6 +93,7 @@ export class Game {
 	private finish_move(move: Move, callback: Callback): void {
 		this.execute_move(move)
 		this.switch_color()
+		this.compute_all_moves()
 		this.update_status()
 		callback()
 	}
@@ -107,10 +109,11 @@ export class Game {
 		this.current_color = "white"
 		this.status = "playing"
 		this.move_start_coord = null
-		this.possible_moves = null
+		this.possible_moves = []
 		this.promotion_move = null
 		this.move_history.clear()
 		this.board.reset()
+		this.compute_all_moves()
 	}
 
 	compute_all_moves(): void {
