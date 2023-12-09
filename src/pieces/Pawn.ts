@@ -24,7 +24,8 @@ export class Pawn extends Piece {
 		const direction: number = DIRECTION[this.color]
 		const in_front: Coord = [row + direction, col]
 		const in_front2: Coord = [row + 2 * direction, col]
-		const base_line: number = ROWS[direction === 1 ? ROWS.length - 1 : 0]
+		const finish_line: number = ROWS[direction === 1 ? ROWS.length - 1 : 0]
+		const original_row: number = ROWS[direction === 1 ? 1 : ROWS.length - 2]
 
 		// move one step in front
 		if (is_valid(in_front) && !board.has(in_front)) {
@@ -32,12 +33,12 @@ export class Pawn extends Piece {
 				start: coord,
 				end: in_front,
 				piece: this,
-				type: in_front[0] == base_line ? "promotion" : "regular",
+				type: in_front[0] == finish_line ? "promotion" : "regular",
 			})
 
 			// move two steps in front
 			if (
-				!move_history?.contains_piece(this) &&
+				row === original_row &&
 				is_valid(in_front2) &&
 				!board.has(in_front2)
 			) {
@@ -59,7 +60,7 @@ export class Pawn extends Piece {
 					start: coord,
 					end: target,
 					piece: this,
-					type: target[0] == base_line ? "promotion" : "regular",
+					type: target[0] == finish_line ? "promotion" : "regular",
 					capture_at: target,
 				})
 			}
