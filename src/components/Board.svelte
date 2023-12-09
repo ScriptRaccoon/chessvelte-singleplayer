@@ -11,11 +11,12 @@
 	export let board: BoardController
 	export let possible_targets: Coord[] = []
 	export let move_start_coord: Coord | null = null
+	export let flipped: boolean = false
 
 	const SHOW_COORDS = import.meta.env.VITE_SHOW_COORDS === "1"
 </script>
 
-<div class="board" style:--size={SIZE}>
+<div class="board" class:flipped style:--size={SIZE}>
 	<div class="squares">
 		{#each ROWS as row}
 			{#each COLS as col}
@@ -36,7 +37,7 @@
 		{#each board.coords as coord}
 			{@const piece = board.get(coord)}
 			{#if piece}
-				<Piece {coord} {piece} />
+				<Piece {coord} {piece} {flipped} />
 			{/if}
 		{/each}
 	{/key}
@@ -52,6 +53,11 @@
 		border: 0.4rem solid var(--border-color);
 		position: relative;
 	}
+
+	.board.flipped {
+		transform: rotate(180deg);
+	}
+
 	.squares {
 		width: 100%;
 		height: 100%;

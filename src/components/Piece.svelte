@@ -4,11 +4,12 @@
 
 	export let coord: Coord
 	export let piece: Piece
+	export let flipped: boolean
 
 	const image_src = `sprite.svg#${piece.type}_${piece.color}`
 </script>
 
-<svg class="piece" style:--x={coord[1]} style:--y={coord[0]}>
+<svg class="piece" class:flipped style:--x={coord[1]} style:--y={coord[0]}>
 	<use xlink:href={image_src} />
 </svg>
 
@@ -23,9 +24,14 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		--angle: 0deg;
 		transform: translate(
-			calc(var(--x) * var(--unit)),
-			calc(var(--y) * var(--unit))
-		);
+				calc(var(--x) * var(--unit)),
+				calc(var(--y) * var(--unit))
+			)
+			rotate(var(--angle));
+	}
+	.piece.flipped {
+		--angle: 180deg;
 	}
 </style>

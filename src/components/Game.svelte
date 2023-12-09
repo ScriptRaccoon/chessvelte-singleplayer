@@ -11,7 +11,8 @@
 	const game = new GameController()
 
 	let alert_message: string | null = null
-	let move_counter = 0
+	let move_counter: number = 0
+	let flipped: boolean = false
 
 	function handle_board_click(event: CustomEvent<Coord>): void {
 		const coord = event.detail
@@ -57,6 +58,7 @@
 	on:click={handle_board_click}
 	possible_targets={game.possible_moves.map((move) => move.end)}
 	move_start_coord={game.move_start_coord}
+	{flipped}
 />
 
 <Menu on:restart={restart} color={game.current_color} />
