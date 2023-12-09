@@ -50,6 +50,10 @@
 		game.cancel_promotion()
 		game.rerender = true
 	}
+
+	function flip_board() {
+		flipped = !flipped
+	}
 </script>
 
 <Board
@@ -61,7 +65,7 @@
 	{flipped}
 />
 
-<Menu on:restart={restart} color={game.current_color} />
+<Menu on:restart={restart} color={game.current_color} on:flip={flip_board} />
 
 {#if game.promotion_move != null}
 	<Promotion

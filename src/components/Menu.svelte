@@ -13,6 +13,7 @@
 
 	<menu>
 		<!-- <button class="button">Back</button> -->
+		<button class="button" on:click={() => dispatch("flip")}>Flip</button>
 		<button class="button" on:click={() => dispatch("restart")}>
 			Restart
 		</button>
