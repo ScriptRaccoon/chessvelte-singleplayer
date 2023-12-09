@@ -44,6 +44,11 @@
 		alert_message = null
 		move_counter = 0
 	}
+
+	function cancel_promotion() {
+		game.cancel_promotion()
+		game.rerender = true
+	}
 </script>
 
 <Board
@@ -60,7 +65,7 @@
 	<Promotion
 		color={game.current_color}
 		on:type={finish_promotion}
-		on:cancel={game.cancel_promotion}
+		on:cancel={cancel_promotion}
 	/>
 {/if}
 
