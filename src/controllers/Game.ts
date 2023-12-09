@@ -10,7 +10,7 @@ export class Game {
 	public current_color: Color = "white"
 	public status: "playing" | "check" | "checkmate" | "stalemate" = "playing"
 	public rerender: boolean = true
-	public all_moves: Move[] = []
+	private all_moves: Move[] = []
 	public possible_moves: Move[] = []
 	public move_start_coord: Coord | null = null
 	public promotion_move: Move | null = null

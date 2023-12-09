@@ -50,7 +50,7 @@
 	{move_counter}
 	board={game.board}
 	on:click={handle_board_click}
-	possible_targets={game.possible_moves?.map((move) => move.end) ?? null}
+	possible_targets={game.possible_moves.map((move) => move.end)}
 	move_start_coord={game.move_start_coord}
 />
 

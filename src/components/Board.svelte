@@ -9,7 +9,7 @@
 
 	export let move_counter = 0
 	export let board: BoardController
-	export let possible_targets: Coord[] | null = null
+	export let possible_targets: Coord[] = []
 	export let move_start_coord: Coord | null = null
 
 	const SHOW_COORDS = import.meta.env.VITE_SHOW_COORDS === "1"
