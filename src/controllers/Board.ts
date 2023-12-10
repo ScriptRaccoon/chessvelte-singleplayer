@@ -1,4 +1,4 @@
-import type { Coord, Coord_Key, Move, Color } from "@/utils/types"
+import type { Coord, Coord_Key, Move, Color, Capture } from "@/utils/types"
 import { INITIAL_CONFIG } from "@/pieces/pieces.config"
 import { deep_copy, typed_keys } from "@/utils/utils"
 import { key, unkey } from "@/utils/coordinates"
@@ -42,7 +42,7 @@ export class Board {
 		return typed_keys(this.map).map(unkey)
 	}
 
-	public apply_move(move: Move): void {
+	public apply_move(move: Move): Capture | undefined {
 		if (move.capture) {
 			this.remove(move.capture.coord)
 		}
@@ -61,6 +61,7 @@ export class Board {
 		} else {
 			this.set(move.end, move.piece)
 		}
+		return move.capture
 	}
 
 	public is_check(color: Color): boolean {

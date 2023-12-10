@@ -1,4 +1,11 @@
-import type { Callback, Color, Coord, Coord_Key, Move } from "@/utils/types"
+import type {
+	Callback,
+	Capture,
+	Color,
+	Coord,
+	Coord_Key,
+	Move,
+} from "@/utils/types"
 import type { Piece } from "./Piece"
 import { MoveHistory } from "./MoveHistory"
 import { Board } from "./Board"
@@ -15,6 +22,7 @@ export class Game {
 	public possible_moves: Move[] = []
 	public move_start_coord: Coord | null = null
 	public promotion_move: Move | null = null
+	public captures: Capture[] = []
 
 	constructor() {
 		this.compute_all_moves()
@@ -22,12 +30,6 @@ export class Game {
 
 	public get has_ended(): boolean {
 		return this.status === "checkmate" || this.status === "stalemate"
-	}
-
-	public cancel_promotion(): void {
-		this.promotion_move = null
-		this.move_start_coord = null
-		this.possible_moves = []
 	}
 
 	public select_coord(coord: Coord, callback?: Callback): void {
@@ -71,7 +73,10 @@ export class Game {
 
 	private execute_move(move: Move): void {
 		this.move_history.push(move)
-		this.board.apply_move(move)
+		const capture = this.board.apply_move(move)
+		if (capture) {
+			this.captures.push(capture)
+		}
 	}
 
 	private switch_color(): void {
@@ -104,12 +109,19 @@ export class Game {
 		this.promotion_move = null
 	}
 
+	public cancel_promotion(): void {
+		this.promotion_move = null
+		this.move_start_coord = null
+		this.possible_moves = []
+	}
+
 	public reset(): void {
 		this.current_color = "white"
 		this.status = "playing"
 		this.move_start_coord = null
 		this.possible_moves = []
 		this.promotion_move = null
+		this.captures = []
 		this.move_history.clear()
 		this.board.reset()
 		this.compute_all_moves()
