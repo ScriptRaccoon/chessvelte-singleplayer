@@ -55,7 +55,10 @@ export abstract class Piece {
 							end,
 							piece: this,
 							type: "regular",
-							capture_at: end,
+							capture: {
+								coord: end,
+								piece: other_piece,
+							},
 						})
 					}
 					break

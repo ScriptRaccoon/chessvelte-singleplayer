@@ -15,7 +15,7 @@ export class Knight extends Piece {
 	get_moves(coord: Coord, board: Board): Move[] {
 		const [row, col] = coord
 
-		const targets: Coord[] = [
+		const ends: Coord[] = [
 			[row + 1, col + 2],
 			[row - 1, col + 2],
 			[row + 2, col + 1],
@@ -28,23 +28,26 @@ export class Knight extends Piece {
 
 		const moves: Move[] = []
 
-		for (const target of targets) {
-			if (!is_valid(target)) continue
-			const other = board.get(target)
-			if (!other) {
+		for (const end of ends) {
+			if (!is_valid(end)) continue
+			const other_piece = board.get(end)
+			if (!other_piece) {
 				moves.push({
 					start: coord,
-					end: target,
+					end,
 					piece: this,
 					type: "regular",
 				})
-			} else if (other.color != this.color) {
+			} else if (other_piece.color != this.color) {
 				moves.push({
 					start: coord,
-					end: target,
+					end,
 					piece: this,
 					type: "regular",
-					capture_at: target,
+					capture: {
+						coord: end,
+						piece: other_piece,
+					},
 				})
 			}
 		}

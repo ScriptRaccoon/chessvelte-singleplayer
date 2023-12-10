@@ -39,28 +39,29 @@ export class King extends Piece {
 		for (const direction of directions) {
 			const [y, x] = direction
 
-			const target: Coord = [row + y, col + x]
-			if (!is_valid(target)) continue
+			const end: Coord = [row + y, col + x]
+			if (!is_valid(end)) continue
 
-			const piece = board.get(target)
-			if (piece?.color === this.color) continue
+			const other_piece = board.get(end)
+			if (other_piece?.color === this.color) continue
 
-			if (piece) {
-				if (piece.color != this.color) {
-					moves.push({
-						start: coord,
-						end: target,
-						piece: this,
-						type: "regular",
-						capture_at: target,
-					})
-				}
-			} else {
+			if (!other_piece) {
 				moves.push({
 					start: coord,
-					end: target,
+					end,
 					piece: this,
 					type: "regular",
+				})
+			} else if (other_piece.color != this.color) {
+				moves.push({
+					start: coord,
+					end,
+					piece: this,
+					type: "regular",
+					capture: {
+						coord: end,
+						piece: other_piece,
+					},
 				})
 			}
 		}

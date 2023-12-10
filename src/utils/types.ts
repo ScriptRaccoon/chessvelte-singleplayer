@@ -11,9 +11,14 @@ export type Move = {
 	start: Coord
 	end: Coord
 	piece: Piece
-	capture_at?: Coord
+	capture?: Capture
 	promotion_type?: Piece["type"]
 	associated_move?: Move
+}
+
+export type Capture = {
+	coord: Coord
+	piece: Piece
 }
 
 export interface copyable<T> {

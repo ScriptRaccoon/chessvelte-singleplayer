@@ -43,7 +43,9 @@ export class Board {
 	}
 
 	public apply_move(move: Move): void {
-		if (move.capture_at) this.remove(move.capture_at)
+		if (move.capture) {
+			this.remove(move.capture.coord)
+		}
 		this.remove(move.start)
 		if (move.type === "promotion") {
 			if (move.promotion_type) {
