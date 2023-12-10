@@ -7,6 +7,7 @@
 	import Alert from "./Alert.svelte"
 	import Promotion from "./Promotion.svelte"
 	import Board from "./Board.svelte"
+	import Captures from "./Captures.svelte"
 
 	const game = new GameController()
 
@@ -66,6 +67,8 @@
 />
 
 <Menu on:restart={restart} color={game.current_color} on:flip={flip_board} />
+
+<Captures captured_pieces={game.captures.map((capture) => capture.piece)} />
 
 {#if game.promotion_move != null}
 	<Promotion

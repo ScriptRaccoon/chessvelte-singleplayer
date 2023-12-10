@@ -1,16 +1,15 @@
 <script lang="ts">
 	import type { Piece } from "@/controllers/Piece"
+	import { piece_src } from "@/utils/config"
 	import type { Coord } from "@/utils/types"
 
 	export let coord: Coord
 	export let piece: Piece
 	export let flipped: boolean
-
-	const image_src = `sprite.svg#${piece.type}_${piece.color}`
 </script>
 
 <svg class="piece" class:flipped style:--x={coord[1]} style:--y={coord[0]}>
-	<use xlink:href={image_src} />
+	<use xlink:href={piece_src(piece.type, piece.color)} />
 </svg>
 
 <style>

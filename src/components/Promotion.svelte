@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte"
 
-	import { PROMOTION_PIECE_TYPES } from "@/utils/config"
+	import { PROMOTION_PIECE_TYPES, piece_src } from "@/utils/config"
 	import Dialog from "./Dialog.svelte"
 	import type { Color } from "@/utils/types"
 
@@ -13,10 +13,9 @@
 <Dialog open={true} with_cancel_button={true} w="25rem" on:cancel>
 	<div class="choices">
 		{#each PROMOTION_PIECE_TYPES as type}
-			{@const src = `sprite.svg#${type}_${color}`}
 			<button on:click={() => dispatch("type", type)}>
 				<svg>
-					<use xlink:href={src} />
+					<use xlink:href={piece_src(type, color)} />
 				</svg>
 			</button>
 		{/each}

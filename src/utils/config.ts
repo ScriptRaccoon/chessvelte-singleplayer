@@ -16,3 +16,6 @@ export const PROMOTION_PIECE_TYPES: Piece["type"][] = [
 	"bishop",
 	"knight",
 ]
+
+export const piece_src = (type: Piece["type"], color: Piece["color"]) =>
+	`sprite.svg#${type}_${color}`

@@ -4,8 +4,8 @@
 
 - go back feature
 - two-player integration
-- save captured pieces in moves
-- show captured pieces under the board
+- sort captured pieces by rank
+- a11y
 
 ### STRUCTURE ###
 
