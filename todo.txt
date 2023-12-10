@@ -4,7 +4,6 @@
 
 - go back feature
 - two-player integration
-- sort captured pieces by rank
 - a11y
 
 ### STRUCTURE ###

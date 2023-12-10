@@ -4,13 +4,15 @@
 
 	export let captured_pieces: Piece[] = []
 
-	$: white_captures = captured_pieces.filter(
-		(piece) => piece.color === "white"
-	)
-	$: black_captures = captured_pieces.filter(
-		(piece) => piece.color === "black"
-	)
-	$: groups = [white_captures, black_captures]
+	$: white_group = captured_pieces
+		.filter((piece) => piece.color === "white")
+		.sort((p, q) => p.value - q.value)
+
+	$: black_group = captured_pieces
+		.filter((piece) => piece.color === "black")
+		.sort((p, q) => p.value - q.value)
+
+	$: groups = [white_group, black_group]
 </script>
 
 <div class="captures">
