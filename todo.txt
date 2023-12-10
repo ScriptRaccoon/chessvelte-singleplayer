@@ -1,0 +1,10 @@
+### BUGS ####
+
+### FEATURES ###
+
+- go back feature
+- two-player integration
+
+### STRUCTURE ###
+
+- find a better solution to game.rerender = true
