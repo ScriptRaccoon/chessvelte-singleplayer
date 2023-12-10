@@ -19,3 +19,12 @@ export const PROMOTION_PIECE_TYPES: Piece["type"][] = [
 
 export const piece_src = (type: Piece["type"], color: Piece["color"]) =>
 	`sprite.svg#${type}_${color}`
+
+export const VALUES: Record<Piece["type"], number> = {
+	rook: 5,
+	bishop: 3,
+	knight: 3,
+	pawn: 1,
+	queen: 9,
+	king: Number.POSITIVE_INFINITY,
+}
