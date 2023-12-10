@@ -37,10 +37,12 @@
 
 	.circle.white {
 		background-color: white;
+		outline: 0.1rem solid black;
 	}
 
 	.circle.black {
 		background-color: black;
+		outline: 0.1rem solid white;
 	}
 
 	menu {
