@@ -1,5 +1,5 @@
-# Chessvelte
+# Chessvelte (Single Player)
 
-A chess app made with Svelte
+A single-player chess app made with Svelte
 
-https://chessvelte.netlify.app/
+https://chessvelte-singleplayer.netlify.app/
