@@ -1,4 +1,4 @@
-# Chessvelte (Single Player)
+# Chessvelte - Single-Player version
 
 A single-player chess app made with Svelte
 
