@@ -2,11 +2,4 @@
 
 ### FEATURES ###
 
-- go back feature
-- two-player integration
-- a11y
-
 ### STRUCTURE ###
-
-- find a better solution to game.rerender = true
-- isolate move types in separate functions (Pawn.capture_moves etc.)
